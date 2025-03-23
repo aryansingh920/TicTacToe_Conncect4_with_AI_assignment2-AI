@@ -1,3 +1,13 @@
+"""
+Created on 23/03/2025
+
+@author: Aryan
+
+Filename: connect4.py
+
+Relative Path: gui/connect4.py
+"""
+
 import pygame
 import sys
 
