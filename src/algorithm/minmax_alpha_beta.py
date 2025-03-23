@@ -9,46 +9,56 @@ and Connect4, similar to the plain Minimax approach but with alpha, beta cuts.
 import math
 
 
-def minimax_alpha_beta_tictactoe(state, maximizing_player, alpha=-math.inf, beta=math.inf, depth=0):
+def minimax_alpha_beta_tictactoe(state, maximizing_player, alpha=float('-inf'), beta=float('inf'), depth=0, max_depth=9):
     """
     Minimax with alpha-beta pruning for TicTacToe.
-    :param state: dictionary or object that holds:
-                  - 'board': 2D list
-                  - 'current_player': integer (1 or 2)
-                  - helper methods: is_terminal, evaluate, get_children
-    :param maximizing_player: which player we are maximizing for
+    :param state: dictionary containing board state and helper functions
+    :param maximizing_player: which player we are maximizing for (1 or 2)
     :param alpha: best value the maximizer can guarantee so far
     :param beta: best value the minimizer can guarantee so far
-    :param depth: recursion depth
+    :param depth: current recursion depth
+    :param max_depth: maximum recursion depth to prevent infinite loops
     :return: (best_score, best_move)
     """
+    current_board = state["board"]
+    current_player = state["current_player"]
 
-    if state["is_terminal"](state["board"]):
-        return state["evaluate"](state["board"], depth), None
+    # Check if terminal or max depth reached
+    if state["is_terminal"](current_board) or depth >= max_depth:
+        return state["evaluate"](current_board, depth), None
+
+    # Get all possible moves
+    children = state["get_children"](state)
+
+    # If no valid moves, it's a draw
+    if not children:
+        return 0, None
 
     best_move = None
 
-    if state["current_player"] == maximizing_player:
-        best_score = -math.inf
-        for move, child_state in state["get_children"](state):
-            score, _ = minimax_alpha_beta_tictactoe(child_state, maximizing_player,
-                                                    alpha, beta, depth+1)
+    if current_player == maximizing_player:
+        best_score = float('-inf')
+        for move, child_state in children:
+            score, _ = minimax_alpha_beta_tictactoe(
+                child_state, maximizing_player, alpha, beta, depth+1, max_depth
+            )
             if score > best_score:
                 best_score = score
                 best_move = move
             alpha = max(alpha, best_score)
             if beta <= alpha:
                 break  # beta cut-off
-        return best_score, best_move
     else:
-        best_score = math.inf
-        for move, child_state in state["get_children"](state):
-            score, _ = minimax_alpha_beta_tictactoe(child_state, maximizing_player,
-                                                    alpha, beta, depth+1)
+        best_score = float('inf')
+        for move, child_state in children:
+            score, _ = minimax_alpha_beta_tictactoe(
+                child_state, maximizing_player, alpha, beta, depth+1, max_depth
+            )
             if score < best_score:
                 best_score = score
                 best_move = move
             beta = min(beta, best_score)
             if beta <= alpha:
                 break  # alpha cut-off
-        return best_score, best_move
+
+    return best_score, best_move

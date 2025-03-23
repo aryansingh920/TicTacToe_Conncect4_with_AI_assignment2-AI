@@ -215,56 +215,97 @@ def set_winning_line(win_info):
 
 
 def tictactoe_is_terminal(bd):
-    # Return True if we have a winner or draw
-    if check_win(1) or check_win(2):
+    """Check if the game has ended (win or draw)"""
+    # Check if player 1 (X) or player 2 (O) has won
+    # Check rows
+    for row in bd:
+        if row[0] != 0 and row[0] == row[1] == row[2]:
+            return True
+
+    # Check columns
+    for col in range(3):
+        if bd[0][col] != 0 and bd[0][col] == bd[1][col] == bd[2][col]:
+            return True
+
+    # Check diagonals
+    if bd[0][0] != 0 and bd[0][0] == bd[1][1] == bd[2][2]:
         return True
-    if check_draw():
+    if bd[0][2] != 0 and bd[0][2] == bd[1][1] == bd[2][0]:
         return True
+
+    # Check for draw (if board is full)
+    if all(cell != 0 for row in bd for cell in row):
+        return True
+
     return False
 
 
 def tictactoe_evaluate(bd, depth):
-    # A simplistic scoring approach
-    # If X wins, return positive; if O wins, return negative
-    # Depth is used so that faster wins get a bigger score.
-    # Example scoring:
-    #    +10 - depth if X wins
-    #    -10 + depth if O wins
-    #     0 if draw
-    if check_win(1):
+    """Evaluate the board state and return a score"""
+    # Check rows for X win
+    for row in bd:
+        if row[0] == row[1] == row[2] == 1:
+            return 10 - depth
+
+    # Check columns for X win
+    for col in range(3):
+        if bd[0][col] == bd[1][col] == bd[2][col] == 1:
+            return 10 - depth
+
+    # Check diagonals for X win
+    if bd[0][0] == bd[1][1] == bd[2][2] == 1:
         return 10 - depth
-    elif check_win(2):
+    if bd[0][2] == bd[1][1] == bd[2][0] == 1:
+        return 10 - depth
+
+    # Check rows for O win
+    for row in bd:
+        if row[0] == row[1] == row[2] == 2:
+            return depth - 10
+
+    # Check columns for O win
+    for col in range(3):
+        if bd[0][col] == bd[1][col] == bd[2][col] == 2:
+            return depth - 10
+
+    # Check diagonals for O win
+    if bd[0][0] == bd[1][1] == bd[2][2] == 2:
         return depth - 10
-    else:
-        return 0
+    if bd[0][2] == bd[1][1] == bd[2][0] == 2:
+        return depth - 10
+
+    # If no win, return 0 (draw or ongoing game)
+    return 0
 
 
 def tictactoe_get_children(state):
-    """
-    Generate all possible next states for the current player.
-    Return list of (move, child_state).
-    'move' can be (row, col).
-    """
+    """Generate all possible next states for the current player"""
     bd = state["board"]
+    current_player = state["current_player"]
     children = []
-    for r in range(BOARD_ROWS):
-        for c in range(BOARD_COLS):
-            if bd[r][c] == 0:
-                # Copy board
+
+    for r in range(3):
+        for c in range(3):
+            if bd[r][c] == 0:  # Empty cell
+                # Create a deep copy of the board
                 new_board = [row[:] for row in bd]
-                new_board[r][c] = state["current_player"]
-                # Next player
-                next_player = 1 if state["current_player"] == 2 else 2
+                new_board[r][c] = current_player
+
+                # Switch to the other player
+                next_player = 1 if current_player == 2 else 2
+
+                # Create the new state
                 child_state = {
                     "board": new_board,
                     "current_player": next_player,
-                    "is_terminal": tictactoe_is_terminal,
-                    "evaluate": tictactoe_evaluate,
-                    "get_children": tictactoe_get_children
+                    "is_terminal": state["is_terminal"],
+                    "evaluate": state["evaluate"],
+                    "get_children": state["get_children"]
                 }
-                children.append(((r, c), child_state))
-    return children
 
+                children.append(((r, c), child_state))
+
+    return children
 
 def get_ai_move(ai_mode):
     """
