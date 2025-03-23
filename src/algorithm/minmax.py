@@ -53,3 +53,49 @@ def minimax_tictactoe(state, maximizing_player, depth=0, max_depth=9):
                 best_move = move
 
     return best_score, best_move
+
+
+def minimax_connect4(state, maximizing_player, depth=0, max_depth=5):
+    """
+    Minimax algorithm for Connect4 with depth limiting.
+    
+    :param state: dictionary containing board state and helper functions
+    :param maximizing_player: integer indicating which player we are maximizing for (1 or 2)
+    :param depth: current recursion depth
+    :param max_depth: maximum recursion depth to prevent infinite loops
+    :return: (best_score, best_move)
+    """
+    current_board = state["board"]
+    current_player = state["current_player"]
+
+    # Check if terminal state or max depth reached
+    if state["is_terminal"](current_board) or depth >= max_depth:
+        return state["evaluate"](current_board, depth), None
+
+    # Get all possible moves
+    children = state["get_children"](state)
+
+    # If no valid moves, it's a draw
+    if not children:
+        return 0, None
+
+    best_move = children[0][0]  # Default to first move
+
+    if current_player == maximizing_player:
+        best_score = float('-inf')
+        for move, child_state in children:
+            score, _ = minimax_connect4(
+                child_state, maximizing_player, depth+1, max_depth)
+            if score > best_score:
+                best_score = score
+                best_move = move
+    else:
+        best_score = float('inf')
+        for move, child_state in children:
+            score, _ = minimax_connect4(
+                child_state, maximizing_player, depth+1, max_depth)
+            if score < best_score:
+                best_score = score
+                best_move = move
+
+    return best_score, best_move
