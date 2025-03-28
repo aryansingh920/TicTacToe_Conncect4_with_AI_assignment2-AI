@@ -16,8 +16,8 @@ pygame.init()
 # -----------------------------
 # CONFIG AND CONSTANTS
 # -----------------------------
-BOARD_COLS = 7
-BOARD_ROWS = 6
+BOARD_COLS = 6
+BOARD_ROWS = 5
 
 # Layout
 SQUARE_SIZE = 100
