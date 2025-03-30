@@ -31,4 +31,4 @@ if __name__ == "__main__":
     #   run_connect4(ai_mode_1="none", ai_mode_2="none") => Human vs Human
     #   run_connect4(ai_mode_1="minimax", ai_mode_2="none") => Minimax (Red) vs Human (Yellow)
     #   run_connect4(ai_mode_1="minimax", ai_mode_2="alpha-beta") => Minimax vs Alpha-Beta
-    run_connect4(ai_mode_1="minimax", ai_mode_2="none")
+    run_connect4(ai_mode_1="qlearning", ai_mode_2="none")

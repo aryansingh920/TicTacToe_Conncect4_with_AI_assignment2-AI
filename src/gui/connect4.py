@@ -106,19 +106,103 @@ def connect4_winner(bd):
 
 def connect4_evaluate(bd, depth):
     """
-    Basic evaluation for minimax/alpha-beta:
-      +100 - depth if Red(1) has connect-4,
-      -100 + depth if Yellow(2) has connect-4,
-       0 otherwise (no winner yet, or draw).
+    Enhanced evaluation for minimax/alpha-beta:
+      - Terminal states: use a high magnitude score.
+      - Non-terminal states: score based on potential connect opportunities.
+      - Includes horizontal, vertical, and diagonal (3 and 4-length) evaluations.
     """
+
     w = connect4_winner(bd)
     if w == 1:
-        # Red has 4 in a row
-        return 100 - depth
+        return 1000 - depth
     elif w == 2:
-        # Yellow has 4 in a row
-        return depth - 100
-    return 0
+        return depth - 1000
+
+    rows = len(bd)
+    cols = len(bd[0]) if rows > 0 else 0
+    score = 0
+
+    def get_window(r, c, dr, dc, length=4):
+        window = []
+        for i in range(length):
+            rr = r + i*dr
+            cc = c + i*dc
+            if 0 <= rr < rows and 0 <= cc < cols:
+                window.append(bd[rr][cc])
+            else:
+                break
+        return window
+
+    def score_window(window):
+        red_count = window.count(1)
+        yellow_count = window.count(2)
+
+        if red_count > 0 and yellow_count == 0:
+            if red_count == 3 and len(window) == 4:
+                return 50
+            elif red_count == 2 and len(window) == 4:
+                return 5
+            elif red_count == 2 and len(window) == 3:
+                return 3
+        elif yellow_count > 0 and red_count == 0:
+            if yellow_count == 3 and len(window) == 4:
+                return -50
+            elif yellow_count == 2 and len(window) == 4:
+                return -5
+            elif yellow_count == 2 and len(window) == 3:
+                return -3
+
+        return 0
+
+    # Horizontal (length 4)
+    for r in range(rows):
+        for c in range(cols - 3):
+            window = get_window(r, c, 0, 1, 4)
+            score += score_window(window)
+
+    # Vertical (length 4)
+    for r in range(rows - 3):
+        for c in range(cols):
+            window = get_window(r, c, 1, 0, 4)
+            score += score_window(window)
+
+    # Diagonal \ (length 4)
+    for r in range(rows - 3):
+        for c in range(cols - 3):
+            window = get_window(r, c, 1, 1, 4)
+            score += score_window(window)
+
+    # Diagonal / (length 4)
+    for r in range(3, rows):
+        for c in range(cols - 3):
+            window = get_window(r, c, -1, 1, 4)
+            score += score_window(window)
+
+    # Horizontal (length 3)
+    for r in range(rows):
+        for c in range(cols - 2):
+            window = get_window(r, c, 0, 1, 3)
+            score += score_window(window)
+
+    # Vertical (length 3)
+    for r in range(rows - 2):
+        for c in range(cols):
+            window = get_window(r, c, 1, 0, 3)
+            score += score_window(window)
+
+    # Diagonal \ (length 3)
+    for r in range(rows - 2):
+        for c in range(cols - 2):
+            window = get_window(r, c, 1, 1, 3)
+            score += score_window(window)
+
+    # Diagonal / (length 3)
+    for r in range(2, rows):
+        for c in range(cols - 2):
+            window = get_window(r, c, -1, 1, 3)
+            score += score_window(window)
+
+    return score
 
 
 def connect4_get_children(state):
