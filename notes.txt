@@ -25,3 +25,25 @@ Drop in column 1 => is_terminal=False, winner=0
 Drop in column 2 => is_terminal=False, winner=0
 Drop in column 3 => is_terminal=False, winner=0
 (.venv) (base) aryansingh@Aryans-MacBook-Air assignment2 % python -u "/Users/aryansingh/Documents/ai/assignment2/src/state/connect4.py"
+
+
+
+
+(.venv) (base) aryansingh@Aryans-MacBook-Air assignment2 % python -u "/Users/aryansingh/Documents/ai/assignment2/src/main.py"
+Could not load Q-table: Ran out of input
+Episode 5000: P1 wins = 2183, P2 wins = 478, Draws = 2339
+Episode 10000: P1 wins = 4449, P2 wins = 945, Draws = 4606
+Training finished.
+P1 wins: 4449, P2 wins: 945, Draws: 4606
+(.venv) (base) aryansingh@Aryans-MacBook-Air assignment2 % python -u "/Users/aryansingh/Documents/ai/assignment2/src/main.py"
+pygame 2.6.1 (SDL 2.28.4, Python 3.12.4)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+2025-03-30 23:58:15.967 Python[28008:437219] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/jx/gsrb4w693h1b2kyl21zw93gr0000gn/T/org.python.python.savedState
+Q-table loaded from data/connect4/qtable_single.pkl
+Q-table loaded from data/connect4/qtable_single.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+2025-03-30 23:58:16.573 Python[28008:437219] +[IMKClient subclass]: chose IMKClient_Modern
+2025-03-30 23:58:16.573 Python[28008:437219] +[IMKInputSession subclass]: chose IMKInputSession_Modern
+^CInterrupt received. Saving current state dictionary...
+Connect4 states saved to data/connect4/connect4_states_4x4.pkl
+(.venv) (base) aryansingh@Aryans-MacBook-Air assignment2 % 
