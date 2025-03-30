@@ -1,13 +1,3 @@
-"""
-Created on 30/03/2025
-
-@author: Aryan
-
-Filename: headless_selfplay_tictactoe.py
-
-Relative Path: src/gui/headless_selfplay_tictactoe.py
-"""
-
 import random
 import collections
 import copy
@@ -52,9 +42,10 @@ def get_valid_moves(board):
     return valid_moves
 
 
-def play_game_q_vs_q(agentX, agentO):
+def play_game_q_vs_q(agent, transform_state_for_O=True):
     """
     One self-play game: X=1, O=2
+    Uses a single agent that acts for both players
     Return (winner, final_board)
     """
     board = [[0]*3 for _ in range(3)]
@@ -67,13 +58,13 @@ def play_game_q_vs_q(agentX, agentO):
             valid_moves = get_valid_moves(board)
             if not valid_moves:
                 # It's a draw => update Q
-                agentX.batch_update_from_game(
+                agent.batch_update_from_game(
                     q_game_trajectory_X, final_reward=0)
-                agentO.batch_update_from_game(
+                agent.batch_update_from_game(
                     q_game_trajectory_O, final_reward=0)
                 return (0, board)
 
-            action = agentX.choose_action(board, valid_moves)
+            action = agent.choose_action(board, valid_moves)
             board_copy = copy.deepcopy(board)
             q_game_trajectory_X.append((board_copy, action))
 
@@ -81,15 +72,15 @@ def play_game_q_vs_q(agentX, agentO):
             board[r][c] = 1
 
             if check_win(1, board):
-                agentX.batch_update_from_game(
+                agent.batch_update_from_game(
                     q_game_trajectory_X, final_reward=+1)
-                agentO.batch_update_from_game(
+                agent.batch_update_from_game(
                     q_game_trajectory_O, final_reward=-1)
                 return (1, board)
             if check_draw(board):
-                agentX.batch_update_from_game(
+                agent.batch_update_from_game(
                     q_game_trajectory_X, final_reward=0)
-                agentO.batch_update_from_game(
+                agent.batch_update_from_game(
                     q_game_trajectory_O, final_reward=0)
                 return (0, board)
 
@@ -97,13 +88,23 @@ def play_game_q_vs_q(agentX, agentO):
         else:
             valid_moves = get_valid_moves(board)
             if not valid_moves:
-                agentX.batch_update_from_game(
+                agent.batch_update_from_game(
                     q_game_trajectory_X, final_reward=0)
-                agentO.batch_update_from_game(
+                agent.batch_update_from_game(
                     q_game_trajectory_O, final_reward=0)
                 return (0, board)
 
-            action = agentO.choose_action(board, valid_moves)
+            # For player O, we can either:
+            # 1. Transform the board to look like X's perspective
+            # 2. Keep the original board but have the agent handle different players
+            if transform_state_for_O:
+                # Option 1: Transform board so O looks like X to the agent
+                transformed_board = transform_board_for_O(board)
+                action = agent.choose_action(transformed_board, valid_moves)
+            else:
+                # Option 2: Pass the player information to the agent
+                action = agent.choose_action(board, valid_moves, player=2)
+
             board_copy = copy.deepcopy(board)
             q_game_trajectory_O.append((board_copy, action))
 
@@ -111,28 +112,41 @@ def play_game_q_vs_q(agentX, agentO):
             board[r][c] = 2
 
             if check_win(2, board):
-                agentO.batch_update_from_game(
+                agent.batch_update_from_game(
                     q_game_trajectory_O, final_reward=+1)
-                agentX.batch_update_from_game(
+                agent.batch_update_from_game(
                     q_game_trajectory_X, final_reward=-1)
                 return (2, board)
             if check_draw(board):
-                agentX.batch_update_from_game(
+                agent.batch_update_from_game(
                     q_game_trajectory_X, final_reward=0)
-                agentO.batch_update_from_game(
+                agent.batch_update_from_game(
                     q_game_trajectory_O, final_reward=0)
                 return (0, board)
 
             player = 1
 
 
+def transform_board_for_O(board):
+    """
+    Transform the board so that from O's perspective, it looks like X's perspective.
+    This allows using the same Q-table for both players.
+    X (1) becomes O (2) and vice versa.
+    """
+    transformed = copy.deepcopy(board)
+    for r in range(3):
+        for c in range(3):
+            if transformed[r][c] == 1:
+                transformed[r][c] = 2
+            elif transformed[r][c] == 2:
+                transformed[r][c] = 1
+    return transformed
+
+
 def main(episode_count=10000):
-    # Create two Q agents
-    # You can share the same Q-table if you want, but typically we give each player its own.
-    agentX = QLearningAgent(alpha=0.1, gamma=0.9, epsilon=0.2,
-                            save_file='data/tictactoe/qtable_X.pkl')
-    agentO = QLearningAgent(alpha=0.1, gamma=0.9, epsilon=0.2,
-                            save_file='data/tictactoe/qtable_O.pkl')
+    # Create a single Q agent for both players
+    agent = QLearningAgent(alpha=0.1, gamma=0.9, epsilon=0.2,
+                           save_file='data/tictactoe/qtable.pkl')
 
     num_episodes = episode_count
 
@@ -141,7 +155,7 @@ def main(episode_count=10000):
     draws = 0
 
     for episode in range(num_episodes):
-        winner, final_board = play_game_q_vs_q(agentX, agentO)
+        winner, final_board = play_game_q_vs_q(agent)
         if winner == 1:
             wins_for_X += 1
         elif winner == 2:
@@ -150,18 +164,16 @@ def main(episode_count=10000):
             draws += 1
 
         # Decay epsilon if desired
-        # e.g.: agentX.epsilon *= 0.9999
+        # e.g.: agent.epsilon *= 0.9999
 
         # Save progress every 1000 games
         if (episode+1) % 1000 == 0:
-            agentX.save_qtable()
-            agentO.save_qtable()
+            agent.save_qtable()
             print(
                 f"Episode {episode+1} - X wins: {wins_for_X}, O wins: {wins_for_O}, Draws: {draws}")
 
     # Final save
-    agentX.save_qtable()
-    agentO.save_qtable()
+    agent.save_qtable()
     print("Training finished.")
     print(f"X wins: {wins_for_X}, O wins: {wins_for_O}, Draws: {draws}")
 

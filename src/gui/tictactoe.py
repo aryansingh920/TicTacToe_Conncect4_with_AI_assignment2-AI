@@ -14,6 +14,7 @@ import pickle
 import os
 import random
 import collections
+import copy
 
 # ---------------------------------------------------------------------
 # From your existing code: imports of alpha-beta, minimax, QLearningAgent, etc.
@@ -66,16 +67,13 @@ anim_progress = 0.0
 # Create a global TicTacToeStateManager (optional usage)
 ttt_manager = TicTacToeStateManager()
 
-# Create Q agents.
-# If you want each player to have a SEPARATE Q table, create two agents here:
-q_agent_1 = QLearningAgent(
-    alpha=0.1, gamma=0.9, epsilon=0.2, save_file='data/tictactoe/qtable_X.pkl')
-q_agent_2 = QLearningAgent(
-    alpha=0.1, gamma=0.9, epsilon=0.2, save_file='data/tictactoe/qtable_O.pkl')
+# Create a SINGLE Q agent with shared table
+q_agent = QLearningAgent(
+    alpha=0.1, gamma=0.9, epsilon=0.1, save_file='data/tictactoe/qtable.pkl')
 
-# We'll store separate game trajectories if both players are using Q-learning
-q_game_trajectory_1 = []
-q_game_trajectory_2 = []
+# We'll store separate game trajectories for X and O
+q_game_trajectory_X = []
+q_game_trajectory_O = []
 
 # -----------------------------
 # DRAWING FUNCTIONS
@@ -180,14 +178,14 @@ def check_draw():
 
 def restart():
     global board, game_over, player, winning_line, anim_progress
-    global q_game_trajectory_1, q_game_trajectory_2
+    global q_game_trajectory_X, q_game_trajectory_O
     board = [[0]*BOARD_COLS for _ in range(BOARD_ROWS)]
     game_over = False
     player = 1
     winning_line = None
     anim_progress = 0.0
-    q_game_trajectory_1 = []
-    q_game_trajectory_2 = []
+    q_game_trajectory_X = []
+    q_game_trajectory_O = []
 
 
 def set_winning_line(win_info):
@@ -213,6 +211,22 @@ def set_winning_line(win_info):
 # -----------------------------
 # AI HELPER FUNCTIONS
 # -----------------------------
+
+
+def transform_board_for_O(bd):
+    """
+    Transform the board so that from O's perspective, it looks like X's perspective.
+    This allows using the same Q-table for both players.
+    X (1) becomes O (2) and vice versa.
+    """
+    transformed = copy.deepcopy(bd)
+    for r in range(3):
+        for c in range(3):
+            if transformed[r][c] == 1:
+                transformed[r][c] = 2
+            elif transformed[r][c] == 2:
+                transformed[r][c] = 1
+    return transformed
 
 
 def tictactoe_is_terminal(bd):
@@ -271,8 +285,7 @@ def get_ai_move(ai_mode, current_player):
     Decide the best move for the CURRENT player given ai_mode.
     Return (row, col).
     """
-    # We'll decide which Q-agent to use (if needed)
-    global q_game_trajectory_1, q_game_trajectory_2
+    global q_game_trajectory_X, q_game_trajectory_O
 
     # Build a 'state' dict for minimax-based methods
     state = {
@@ -290,10 +303,7 @@ def get_ai_move(ai_mode, current_player):
         score, move = minimax_alpha_beta_tictactoe(state, maximizing_player=1)
         return move
     elif ai_mode == "qlearning":
-        # Decide which Q agent to use
-        q_agent = q_agent_1 if current_player == 1 else q_agent_2
-        q_trajectory = q_game_trajectory_1 if current_player == 1 else q_game_trajectory_2
-
+        # Use the single Q-agent for both players, but transform the board for O
         valid_moves = []
         for r in range(BOARD_ROWS):
             for c in range(BOARD_COLS):
@@ -302,7 +312,16 @@ def get_ai_move(ai_mode, current_player):
         if not valid_moves:
             return None
 
-        chosen_move = q_agent.choose_action(board, valid_moves)
+        # Select trajectory based on current player
+        q_trajectory = q_game_trajectory_X if current_player == 1 else q_game_trajectory_O
+
+        # For player O, transform the board so the agent sees it as X
+        if current_player == 2:
+            transformed_board = transform_board_for_O(board)
+            chosen_move = q_agent.choose_action(transformed_board, valid_moves)
+        else:
+            chosen_move = q_agent.choose_action(board, valid_moves)
+
         # Store transition
         board_copy = [row[:] for row in board]
         q_trajectory.append((board_copy, chosen_move))
@@ -325,7 +344,7 @@ def run_tictactoe(ai_mode_1="none", ai_mode_2="none"):
       - If ai_mode = "minimax"/"alpha-beta", that player uses minimax-based approach.
     """
     global player, game_over, x_wins, o_wins
-    global q_game_trajectory_1, q_game_trajectory_2
+    global q_game_trajectory_X, q_game_trajectory_O
 
     restart()  # start fresh
 
@@ -348,22 +367,22 @@ def run_tictactoe(ai_mode_1="none", ai_mode_2="none"):
                         # Q-learning reward if ai_mode_1 is qlearning
                         if ai_mode_1 == "qlearning":
                             # X just won => final reward = +1 for X
-                            q_agent_1.batch_update_from_game(
-                                q_game_trajectory_1, final_reward=+1)
+                            q_agent.batch_update_from_game(
+                                q_game_trajectory_X, final_reward=+1)
                         # If O was also Q-learning, O gets negative reward
                         if ai_mode_2 == "qlearning":
-                            q_agent_2.batch_update_from_game(
-                                q_game_trajectory_2, final_reward=-1)
+                            q_agent.batch_update_from_game(
+                                q_game_trajectory_O, final_reward=-1)
 
                     elif check_draw():
                         game_over = True
                         # If Q-learning: reward=0 for both
                         if ai_mode_1 == "qlearning":
-                            q_agent_1.batch_update_from_game(
-                                q_game_trajectory_1, final_reward=0)
+                            q_agent.batch_update_from_game(
+                                q_game_trajectory_X, final_reward=0)
                         if ai_mode_2 == "qlearning":
-                            q_agent_2.batch_update_from_game(
-                                q_game_trajectory_2, final_reward=0)
+                            q_agent.batch_update_from_game(
+                                q_game_trajectory_O, final_reward=0)
                     else:
                         player = 2
                 else:
@@ -388,21 +407,21 @@ def run_tictactoe(ai_mode_1="none", ai_mode_2="none"):
                         # Q-learning reward if ai_mode_2 is qlearning
                         if ai_mode_2 == "qlearning":
                             # O just won => final reward = +1 for O
-                            q_agent_2.batch_update_from_game(
-                                q_game_trajectory_2, final_reward=+1)
+                            q_agent.batch_update_from_game(
+                                q_game_trajectory_O, final_reward=+1)
                         # If X was also Q-learning, X gets negative reward
                         if ai_mode_1 == "qlearning":
-                            q_agent_1.batch_update_from_game(
-                                q_game_trajectory_1, final_reward=-1)
+                            q_agent.batch_update_from_game(
+                                q_game_trajectory_X, final_reward=-1)
                     elif check_draw():
                         game_over = True
                         # If Q-learning: reward=0
                         if ai_mode_2 == "qlearning":
-                            q_agent_2.batch_update_from_game(
-                                q_game_trajectory_2, final_reward=0)
+                            q_agent.batch_update_from_game(
+                                q_game_trajectory_O, final_reward=0)
                         if ai_mode_1 == "qlearning":
-                            q_agent_1.batch_update_from_game(
-                                q_game_trajectory_1, final_reward=0)
+                            q_agent.batch_update_from_game(
+                                q_game_trajectory_X, final_reward=0)
                     else:
                         player = 1
                 else:
@@ -440,13 +459,13 @@ def run_tictactoe(ai_mode_1="none", ai_mode_2="none"):
                                         x_wins += 1
                                         if ai_mode_2 == "qlearning":
                                             # O lost => final_reward = -1
-                                            q_agent_2.batch_update_from_game(
-                                                q_game_trajectory_2, final_reward=-1)
+                                            q_agent.batch_update_from_game(
+                                                q_game_trajectory_O, final_reward=-1)
                                     elif check_draw():
                                         game_over = True
                                         if ai_mode_2 == "qlearning":
-                                            q_agent_2.batch_update_from_game(
-                                                q_game_trajectory_2, final_reward=0)
+                                            q_agent.batch_update_from_game(
+                                                q_game_trajectory_O, final_reward=0)
                                     else:
                                         player = 2
 
@@ -465,13 +484,13 @@ def run_tictactoe(ai_mode_1="none", ai_mode_2="none"):
                                         o_wins += 1
                                         if ai_mode_1 == "qlearning":
                                             # X lost => final_reward = -1
-                                            q_agent_1.batch_update_from_game(
-                                                q_game_trajectory_1, final_reward=-1)
+                                            q_agent.batch_update_from_game(
+                                                q_game_trajectory_X, final_reward=-1)
                                     elif check_draw():
                                         game_over = True
                                         if ai_mode_1 == "qlearning":
-                                            q_agent_1.batch_update_from_game(
-                                                q_game_trajectory_1, final_reward=0)
+                                            q_agent.batch_update_from_game(
+                                                q_game_trajectory_X, final_reward=0)
                                     else:
                                         player = 1
 
@@ -500,4 +519,4 @@ def run_tictactoe(ai_mode_1="none", ai_mode_2="none"):
 #     #  2) run_tictactoe(ai_mode_1="minimax", ai_mode_2="none") => Minimax (X) vs Human (O)
 #     #  3) run_tictactoe(ai_mode_1="minimax", ai_mode_2="qlearning") => Minimax (X) vs Q-Learning (O)
 #     #  4) run_tictactoe(ai_mode_1="qlearning", ai_mode_2="qlearning") => Q-Learning X vs Q-Learning O
-#     run_tictactoe(ai_mode_1="minimax", ai_mode_2="qlearning")
+#     run_tictactoe(ai_mode_1="qlearning", ai_mode_2="qlearning")
