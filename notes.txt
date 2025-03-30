@@ -1,0 +1,27 @@
+(.venv) (base) aryansingh@Aryans-MacBook-Air assignment2 % python -u "/Users/aryansingh/Documents/ai/assignment2/src/main.py"
+pygame 2.6.1 (SDL 2.28.4, Python 3.12.4)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+2025-03-30 19:17:22.862 Python[12501:203888] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/jx/gsrb4w693h1b2kyl21zw93gr0000gn/T/org.python.python.savedState
+States loaded from data/tictactoe/tictactoe_states.pkl
+Q-table loaded from data/tictactoe/qtable.pkl
+Q-table loaded from data/tictactoe/qtable.pkl
+Episode 1000 - X wins: 862, O wins: 72, Draws: 66
+Episode 2000 - X wins: 1706, O wins: 150, Draws: 144
+Episode 3000 - X wins: 2578, O wins: 207, Draws: 215
+Episode 4000 - X wins: 3446, O wins: 272, Draws: 282
+Episode 5000 - X wins: 4313, O wins: 333, Draws: 354
+Episode 6000 - X wins: 5189, O wins: 390, Draws: 421
+Episode 7000 - X wins: 6050, O wins: 444, Draws: 506
+Episode 8000 - X wins: 6933, O wins: 500, Draws: 567
+Episode 9000 - X wins: 7810, O wins: 561, Draws: 629
+Episode 10000 - X wins: 8668, O wins: 637, Draws: 695
+Training finished.
+X wins: 8668, O wins: 637, Draws: 695
+(.venv) (base) aryansingh@Aryans-MacBook-Air assignment2 % python -u "/Users/aryansingh/Documents/ai/assignment2/src/state/connect4.py"
+Connect4 states saved to data/connect4/connect4_states_4x4.pkl
+Total Connect4 states (4x4): 161029
+Drop in column 0 => is_terminal=False, winner=0
+Drop in column 1 => is_terminal=False, winner=0
+Drop in column 2 => is_terminal=False, winner=0
+Drop in column 3 => is_terminal=False, winner=0
+(.venv) (base) aryansingh@Aryans-MacBook-Air assignment2 % python -u "/Users/aryansingh/Documents/ai/assignment2/src/state/connect4.py"

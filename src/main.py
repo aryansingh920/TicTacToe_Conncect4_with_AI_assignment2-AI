@@ -10,15 +10,25 @@ Relative Path: src/main.py
 
 
 from gui.tictactoe import run_tictactoe
-from gui.headless_selfplay_tictactoe import main
+from gui import headless_selfplay_tictactoe
+from gui.connect4 import run_connect4
 
+# if __name__ == "__main__":
+#     headless_selfplay_tictactoe.main(episode_count=10000)
+#     # Example calls:
+#     #  1) run_tictactoe(ai_mode_1="none", ai_mode_2="none") => Human vs Human
+#     # => Minimax (X) vs Human (O)
+#     # run_tictactoe(ai_mode_1="qlearning", ai_mode_2="minimax")
+#     #  3) run_tictactoe(ai_mode_1="minimax", ai_mode_2="qlearning") => Minimax (X) vs Q-Learning (O)
+#     #  4) run_tictactoe(ai_mode_1="qlearning", ai_mode_2="qlearning") => Q-Learning X vs Q-Learning O
+#     # run_tictactoe(ai_mode_1="qlearning", ai_mode_2="alpha-beta")
+# #
+
+
+# If you want to run directly:
 if __name__ == "__main__":
-    # main(episode_count=10000)
-    # Example calls:
-    #  1) run_tictactoe(ai_mode_1="none", ai_mode_2="none") => Human vs Human
-    # => Minimax (X) vs Human (O)
-    run_tictactoe(ai_mode_1="qlearning", ai_mode_2="minimax")
-    #  3) run_tictactoe(ai_mode_1="minimax", ai_mode_2="qlearning") => Minimax (X) vs Q-Learning (O)
-    #  4) run_tictactoe(ai_mode_1="qlearning", ai_mode_2="qlearning") => Q-Learning X vs Q-Learning O
-    # run_tictactoe(ai_mode_1="qlearning", ai_mode_2="alpha-beta")
-#
+    # Examples:
+    #   run_connect4(ai_mode_1="none", ai_mode_2="none") => Human vs Human
+    #   run_connect4(ai_mode_1="minimax", ai_mode_2="none") => Minimax (Red) vs Human (Yellow)
+    #   run_connect4(ai_mode_1="minimax", ai_mode_2="alpha-beta") => Minimax vs Alpha-Beta
+    run_connect4(ai_mode_1="minimax", ai_mode_2="none")
