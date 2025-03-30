@@ -9,10 +9,10 @@ Relative Path: src/main.py
 """
 
 
-from gui.tictactoe import run_tictactoe
+# from gui.tictactoe import run_tictactoe
 from gui import headless_selfplay_tictactoe
 from gui.connect4 import run_connect4
-from gui import headless_selfplay_connect4
+# from gui import headless_selfplay_connect4
 # if __name__ == "__main__":
 #     headless_selfplay_tictactoe.main(episode_count=10000)
 #     # Example calls:
@@ -27,9 +27,9 @@ from gui import headless_selfplay_connect4
 
 # If you want to run directly:
 if __name__ == "__main__":
-    headless_selfplay_connect4.main(episode_count=10000)
+    # headless_selfplay_connect4.main(episode_count=10000)
     # Examples:
     #   run_connect4(ai_mode_1="none", ai_mode_2="none") => Human vs Human
     #   run_connect4(ai_mode_1="minimax", ai_mode_2="none") => Minimax (Red) vs Human (Yellow)
     #   run_connect4(ai_mode_1="minimax", ai_mode_2="alpha-beta") => Minimax vs Alpha-Beta
-    # run_connect4(ai_mode_1="qlearning", ai_mode_2="none")
+    run_connect4(ai_mode_1="qlearning", ai_mode_2="none")

@@ -254,7 +254,7 @@ def main(episode_count=50000):
         # agent.epsilon = max(agent.epsilon * 0.999995, 0.01)
 
         # Save progress every 5,000 games (for example)
-        if (episode+1) % 5000 == 0:
+        if (episode+1) % 100 == 0:
             agent.save_qtable()
             print(
                 f"Episode {episode+1}: P1 wins = {wins_for_p1}, P2 wins = {wins_for_p2}, Draws = {draws}")
@@ -266,5 +266,5 @@ def main(episode_count=50000):
 
 
 # If you want to make it executable:
-# if __name__ == "__main__":
-#     main(episode_count=50000)
+if __name__ == "__main__":
+    main(episode_count=10000)

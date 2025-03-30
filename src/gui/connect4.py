@@ -90,10 +90,10 @@ def initialize_c4_manager():
 # If you prefer to only have a single agent controlling both sides, you can,
 # but typically we keep separate Q-tables so each color can learn distinctly.
 q_agent_red = QLearningAgent(
-    alpha=0.1, gamma=0.9, epsilon=0.1, save_file='data/connect4/qtable_red.pkl'
+    alpha=0.1, gamma=0.9, epsilon=0.1, save_file='data/connect4/qtable_single.pkl'
 )
 q_agent_yellow = QLearningAgent(
-    alpha=0.1, gamma=0.9, epsilon=0.1, save_file='data/connect4/qtable_yellow.pkl'
+    alpha=0.1, gamma=0.9, epsilon=0.1, save_file='data/connect4/qtable_single.pkl'
 )
 
 # We store each agent's (state, action) pairs for a single game.
