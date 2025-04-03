@@ -6,11 +6,14 @@ Created on 31/03/2025
 Filename: main_connect4.py
 Relative Path: src/main_connect4.py
 
-Headless simulation for Connect 4:
-  - Runs N games for every combination of AI strategies:
+Headless simulation for Connect 4 with enhanced evaluation:
+  - Runs N games per run for every combination of AI strategies:
       "random", "minimax", "alpha-beta", "qlearning"
-  - Records win/loss/draw statistics
-  - Generates performance plots (bar chart and heatmap)
+  - Repeats each matchup for multiple runs with different random seeds
+  - Records win/loss/draw statistics and runtime (mean and std deviation)
+  - Records Q-learning convergence (win rate over episodes)
+  - Compares different Q-learning hyperparameters
+  - Generates performance plots (bar chart with error bars, runtime comparison, Q-learning convergence plots, and hyperparameter variation)
   
 Note: This file uses your existing Connect 4 modules (state manager, algorithms,
 and QLearningAgent) without modifying them.
@@ -22,6 +25,7 @@ import time
 import matplotlib.pyplot as plt
 import os
 from collections import defaultdict
+import numpy as np
 
 # Import Connect4 algorithms and state manager
 from algorithm.minmax_connect4 import minimax_connect4
@@ -233,7 +237,6 @@ class HeadlessConnect4:
             return random.choice(valid_moves)
 
         # For minimax/alpha-beta, build a state dictionary.
-        # Define local helper functions that use our Connect4StateManager.
         def is_terminal(bd):
             key = ''.join(str(cell) for row in bd for cell in row)
             info = self.c4_manager.states.get(key, {})
@@ -356,151 +359,283 @@ class HeadlessConnect4:
         print()
 
 # -----------------------------
-# Simulation Runner and Plotting
+# New Simulation Runner and Plotting Functions
 # -----------------------------
 
 
-def run_simulations(num_games, save_plots=True, verbose=False):
+def run_simulations_multiple_runs(num_games, num_runs=5, save_plots=True, verbose=False):
+    """
+    Runs each AI combination for multiple runs (with different random seeds)
+    and records win statistics and runtime.
+    Also records Q-learning convergence data (if applicable).
+    """
     ai_modes = ["random", "minimax", "alpha-beta", "qlearning"]
-    # Create two separate Q-Learning agents (for Red and Yellow)
-    q_agent_red = QLearningAgent(alpha=0.1, gamma=0.9, epsilon=0.1,
-                                 save_file='data/connect4/headless_qtable_red.pkl')
-    q_agent_yellow = QLearningAgent(alpha=0.1, gamma=0.9, epsilon=0.1,
-                                    save_file='data/connect4/headless_qtable_yellow.pkl')
-    game = HeadlessConnect4(n=4)
-    results = {}
-    start_time = time.time()
-    total_combinations = len(ai_modes) * len(ai_modes)
-    current_combo = 0
+    aggregated_results = {}
+    runtime_results = {}
 
-    for ai_mode_red in ai_modes:
-        for ai_mode_yellow in ai_modes:
-            current_combo += 1
-            combo_key = f"{ai_mode_red} vs {ai_mode_yellow}"
-            results[combo_key] = {"red_wins": 0, "yellow_wins": 0, "draws": 0}
+    # For Q-learning convergence data: storing list of outcomes per game per run
+    ql_convergence_data = defaultdict(lambda: {"red": [], "yellow": []})
+
+    for red_ai in ai_modes:
+        for yellow_ai in ai_modes:
+            combo_key = f"{red_ai} vs {yellow_ai}"
+            aggregated_results[combo_key] = {
+                "red_wins": [], "yellow_wins": [], "draws": []}
+            runtime_results[combo_key] = []
+
+            for run in range(num_runs):
+                seed = run + 42  # different seed per run
+                random.seed(seed)
+                # Initialize Q-learning agents only if needed:
+                q_agent_red = QLearningAgent(alpha=0.1, gamma=0.9, epsilon=0.1,
+                                             save_file=f'data/connect4/headless_qtable_red_{combo_key}_{run}.pkl')
+                q_agent_yellow = QLearningAgent(alpha=0.1, gamma=0.9, epsilon=0.1,
+                                                save_file=f'data/connect4/headless_qtable_yellow_{combo_key}_{run}.pkl')
+                game = HeadlessConnect4(n=4)
+                run_stats = {"red_wins": 0, "yellow_wins": 0, "draws": 0}
+                # For Q-learning convergence, record per-game outcome (win=1, loss/draw=0)
+                ql_red_outcomes = []
+                ql_yellow_outcomes = []
+
+                start_run = time.time()
+                for i in range(num_games):
+                    winner = game.run_single_game(
+                        red_ai, yellow_ai, q_agent_red, q_agent_yellow, verbose=verbose)
+                    if winner == 1:
+                        run_stats["red_wins"] += 1
+                        if red_ai == "qlearning":
+                            ql_red_outcomes.append(1)
+                        if yellow_ai == "qlearning":
+                            ql_yellow_outcomes.append(0)
+                    elif winner == 2:
+                        run_stats["yellow_wins"] += 1
+                        if red_ai == "qlearning":
+                            ql_red_outcomes.append(0)
+                        if yellow_ai == "qlearning":
+                            ql_yellow_outcomes.append(1)
+                    else:
+                        run_stats["draws"] += 1
+                        if red_ai == "qlearning":
+                            ql_red_outcomes.append(0)
+                        if yellow_ai == "qlearning":
+                            ql_yellow_outcomes.append(0)
+                end_run = time.time()
+                runtime = end_run - start_run
+                runtime_results[combo_key].append(runtime)
+
+                aggregated_results[combo_key]["red_wins"].append(
+                    run_stats["red_wins"])
+                aggregated_results[combo_key]["yellow_wins"].append(
+                    run_stats["yellow_wins"])
+                aggregated_results[combo_key]["draws"].append(
+                    run_stats["draws"])
+
+                # Store convergence data if Q-learning is involved:
+                if red_ai == "qlearning":
+                    ql_convergence_data[combo_key]["red"].append(
+                        ql_red_outcomes)
+                if yellow_ai == "qlearning":
+                    ql_convergence_data[combo_key]["yellow"].append(
+                        ql_yellow_outcomes)
+
+            # After all runs, calculate and print summary statistics:
+            red_mean = np.mean(aggregated_results[combo_key]["red_wins"])
+            red_std = np.std(aggregated_results[combo_key]["red_wins"])
+            yellow_mean = np.mean(aggregated_results[combo_key]["yellow_wins"])
+            yellow_std = np.std(aggregated_results[combo_key]["yellow_wins"])
+            draws_mean = np.mean(aggregated_results[combo_key]["draws"])
+            draws_std = np.std(aggregated_results[combo_key]["draws"])
+            runtime_mean = np.mean(runtime_results[combo_key])
+            runtime_std = np.std(runtime_results[combo_key])
+
             print(
-                f"Running {combo_key} ({current_combo}/{total_combinations})...")
-
-            for i in range(num_games):
-                if verbose and i % (num_games // 10) == 0:
-                    print(f"  Game {i+1}/{num_games}")
-                winner = game.run_single_game(
-                    ai_mode_red, ai_mode_yellow, q_agent_red, q_agent_yellow, verbose=False)
-                if winner == 1:
-                    results[combo_key]["red_wins"] += 1
-                elif winner == 2:
-                    results[combo_key]["yellow_wins"] += 1
-                else:
-                    results[combo_key]["draws"] += 1
-
-            if "qlearning" in (ai_mode_red, ai_mode_yellow):
-                q_agent_red.save_qtable()
-                q_agent_yellow.save_qtable()
-
-            print(f"Results for {combo_key}:")
+                f"Results for {combo_key} over {num_runs} runs of {num_games} games each:")
+            print(f"  Red wins: {red_mean:.2f} ± {red_std:.2f}")
+            print(f"  Yellow wins: {yellow_mean:.2f} ± {yellow_std:.2f}")
+            print(f"  Draws: {draws_mean:.2f} ± {draws_std:.2f}")
             print(
-                f"  Red wins: {results[combo_key]['red_wins']} ({results[combo_key]['red_wins']/num_games*100:.1f}%)")
-            print(
-                f"  Yellow wins: {results[combo_key]['yellow_wins']} ({results[combo_key]['yellow_wins']/num_games*100:.1f}%)")
-            print(
-                f"  Draws: {results[combo_key]['draws']} ({results[combo_key]['draws']/num_games*100:.1f}%)\n")
-
-    elapsed_time = time.time() - start_time
-    print(
-        f"Total time: {elapsed_time:.2f} seconds for {total_combinations} combinations of {num_games} games each")
-
-    with open(f"connect4_results_{num_games}_games.txt", "w") as f:
-        f.write(
-            f"Connect4 AI Simulation Results ({num_games} games per combination)\n")
-        f.write(f"Total time: {elapsed_time:.2f} seconds\n\n")
-        for combo_key, stats in results.items():
-            f.write(f"Results for {combo_key}:\n")
-            f.write(
-                f"  Red wins: {stats['red_wins']} ({stats['red_wins']/num_games*100:.1f}%)\n")
-            f.write(
-                f"  Yellow wins: {stats['yellow_wins']} ({stats['yellow_wins']/num_games*100:.1f}%)\n")
-            f.write(
-                f"  Draws: {stats['draws']} ({stats['draws']/num_games*100:.1f}%)\n\n")
+                f"  Average runtime: {runtime_mean:.2f}s ± {runtime_std:.2f}s\n")
 
     if save_plots:
-        generate_performance_plots(results, num_games)
+        generate_error_bar_plots(
+            aggregated_results, num_games, runtime_results)
+        generate_qlearning_convergence_plots(ql_convergence_data)
 
-    return results
+    return aggregated_results, runtime_results, ql_convergence_data
 
 
-def generate_performance_plots(results, num_games):
-    ai_modes = ["random", "minimax", "alpha-beta", "qlearning"]
-    red_win_rates = []
-    yellow_win_rates = []
-    draw_rates = []
-    labels = []
+def generate_error_bar_plots(aggregated_results, num_games, runtime_results):
+    # Bar chart for win rates with error bars
+    labels = list(aggregated_results.keys())
+    red_means = [np.mean(aggregated_results[label]["red_wins"]
+                         ) / num_games * 100 for label in labels]
+    red_stds = [np.std(aggregated_results[label]["red_wins"]
+                       ) / num_games * 100 for label in labels]
+    yellow_means = [np.mean(
+        aggregated_results[label]["yellow_wins"]) / num_games * 100 for label in labels]
+    yellow_stds = [np.std(aggregated_results[label]["yellow_wins"]
+                          ) / num_games * 100 for label in labels]
+    draw_means = [np.mean(aggregated_results[label]["draws"]) /
+                  num_games * 100 for label in labels]
+    draw_stds = [np.std(aggregated_results[label]["draws"]) /
+                 num_games * 100 for label in labels]
 
-    for red_ai in ai_modes:
-        for yellow_ai in ai_modes:
-            combo_key = f"{red_ai} vs {yellow_ai}"
-            stats = results[combo_key]
-            red_win_rates.append(stats["red_wins"] / num_games * 100)
-            yellow_win_rates.append(stats["yellow_wins"] / num_games * 100)
-            draw_rates.append(stats["draws"] / num_games * 100)
-            labels.append(combo_key)
-
-    # Bar chart: Red wins, Yellow wins, and Draw percentages
-    fig, ax = plt.subplots(figsize=(15, 8))
+    x = np.arange(len(labels))
     barWidth = 0.25
-    r1 = range(len(labels))
-    r2 = [x + barWidth for x in r1]
-    r3 = [x + barWidth for x in r2]
-    ax.bar(r1, red_win_rates, width=barWidth, label='Red Wins')
-    ax.bar(r2, yellow_win_rates, width=barWidth, label='Yellow Wins')
-    ax.bar(r3, draw_rates, width=barWidth, label='Draws')
-    plt.xlabel('AI Combinations')
-    plt.ylabel('Percentage (%)')
-    plt.title(f'Connect4 AI Performance Comparison ({num_games} games each)')
-    plt.xticks([r + barWidth for r in range(len(labels))],
-               labels, rotation=45, ha='right')
-    plt.legend()
+
+    fig, ax = plt.subplots(figsize=(15, 8))
+    ax.bar(x - barWidth, red_means, width=barWidth,
+           yerr=red_stds, capsize=5, label='Red Wins')
+    ax.bar(x, yellow_means, width=barWidth,
+           yerr=yellow_stds, capsize=5, label='Yellow Wins')
+    ax.bar(x + barWidth, draw_means, width=barWidth,
+           yerr=draw_stds, capsize=5, label='Draws')
+    ax.set_xlabel('AI Combination')
+    ax.set_ylabel('Win Rate (%)')
+    ax.set_title(
+        f'Connect4 AI Performance with Variability ({num_games} games per run)')
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels, rotation=45, ha='right')
+    ax.legend()
     plt.tight_layout()
-    plt.savefig(f'connect4_performance_{num_games}_games.png')
+    plt.savefig('connect4_performance_error_bars.png')
     plt.close()
 
-    # Heatmap: Red win rate matrix (Player 1)
-    matrix_data = defaultdict(dict)
-    for red_ai in ai_modes:
-        for yellow_ai in ai_modes:
-            combo_key = f"{red_ai} vs {yellow_ai}"
-            stats = results[combo_key]
-            matrix_data[red_ai][yellow_ai] = stats["red_wins"] / \
-                num_games * 100
+    # Plot runtime error bars for each AI combination:
+    runtime_means = [np.mean(runtime_results[label]) for label in labels]
+    runtime_stds = [np.std(runtime_results[label]) for label in labels]
 
-    matrix_values = [[matrix_data[red_ai][yellow_ai]
-                      for yellow_ai in ai_modes] for red_ai in ai_modes]
-    fig, ax = plt.subplots(figsize=(10, 8))
-    im = ax.imshow(matrix_values, cmap='YlGnBu')
-    ax.set_xticks(range(len(ai_modes)))
-    ax.set_yticks(range(len(ai_modes)))
-    ax.set_xticklabels(ai_modes)
-    ax.set_yticklabels(ai_modes)
-    plt.setp(ax.get_xticklabels(), rotation=45,
-             ha="right", rotation_mode="anchor")
-    for i in range(len(ai_modes)):
-        for j in range(len(ai_modes)):
-            ax.text(j, i, f"{matrix_values[i][j]:.1f}%",
-                    ha="center", va="center", color="black")
-    ax.set_title(f"Red Win Rate (Player 1) - {num_games} games each")
-    ax.set_xlabel("Yellow (Player 2) Strategy")
-    ax.set_ylabel("Red (Player 1) Strategy")
-    cbar = ax.figure.colorbar(im, ax=ax)
-    cbar.ax.set_ylabel("Win Percentage", rotation=-90, va="bottom")
+    fig, ax = plt.subplots(figsize=(15, 8))
+    ax.bar(x, runtime_means, yerr=runtime_stds, capsize=5)
+    ax.set_xlabel('AI Combination')
+    ax.set_ylabel('Runtime (seconds)')
+    ax.set_title(
+        f'Connect4 Simulation Runtime per AI Combination ({num_games} games per run)')
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels, rotation=45, ha='right')
     plt.tight_layout()
-    plt.savefig(f'connect4_red_winrate_matrix_{num_games}_games.png')
+    plt.savefig('connect4_runtime_error_bars.png')
     plt.close()
+
+
+def generate_qlearning_convergence_plots(ql_convergence_data):
+    # For each combination that involves Q-learning, plot the moving average win rate over episodes.
+    for combo_key, data in ql_convergence_data.items():
+        # Plot for Red Q-learning convergence if data is available
+        if data["red"]:
+            # Assume all runs have the same number of episodes (games)
+            num_runs = len(data["red"])
+            num_episodes = len(data["red"][0])
+            # Compute average win (1=win, 0 otherwise) per episode over runs:
+            # percentage win rate per episode
+            red_avg = np.mean(data["red"], axis=0) * 100
+            episodes = np.arange(1, num_episodes+1)
+            # Compute a moving average (window size = 10)
+            window = 10
+            red_moving_avg = np.convolve(
+                red_avg, np.ones(window)/window, mode='valid')
+
+            fig, ax = plt.subplots(figsize=(10, 6))
+            ax.plot(episodes[window-1:], red_moving_avg,
+                    label='Red Q-learning Win Rate')
+            ax.set_xlabel('Episode')
+            ax.set_ylabel('Win Rate (%)')
+            ax.set_title(f'Q-learning Convergence for Red in {combo_key}')
+            ax.legend()
+            plt.tight_layout()
+            filename = f'qlearning_convergence_red_{combo_key.replace(" ", "_")}.png'
+            plt.savefig(filename)
+            plt.close()
+
+        # Similarly, plot for Yellow Q-learning convergence if available:
+        if data["yellow"]:
+            num_runs = len(data["yellow"])
+            num_episodes = len(data["yellow"][0])
+            yellow_avg = np.mean(data["yellow"], axis=0) * 100
+            episodes = np.arange(1, num_episodes+1)
+            window = 10
+            yellow_moving_avg = np.convolve(
+                yellow_avg, np.ones(window)/window, mode='valid')
+
+            fig, ax = plt.subplots(figsize=(10, 6))
+            ax.plot(episodes[window-1:], yellow_moving_avg,
+                    label='Yellow Q-learning Win Rate')
+            ax.set_xlabel('Episode')
+            ax.set_ylabel('Win Rate (%)')
+            ax.set_title(f'Q-learning Convergence for Yellow in {combo_key}')
+            ax.legend()
+            plt.tight_layout()
+            filename = f'qlearning_convergence_yellow_{combo_key.replace(" ", "_")}.png'
+            plt.savefig(filename)
+            plt.close()
+
+
+def run_qlearning_parameter_experiments(num_games, num_runs, alphas, gammas, epsilons):
+    """
+    Runs experiments varying Q-learning hyperparameters (alpha, gamma, epsilon)
+    against a baseline opponent (here, using "random" for Player 2) and reports the win rate.
+    """
+    param_results = {}
+
+    for alpha in alphas:
+        for gamma in gammas:
+            for epsilon in epsilons:
+                key = f"alpha_{alpha}_gamma_{gamma}_epsilon_{epsilon}"
+                wins = []
+                for run in range(num_runs):
+                    seed = run + 1000
+                    random.seed(seed)
+                    q_agent = QLearningAgent(alpha=alpha, gamma=gamma, epsilon=epsilon,
+                                             save_file=f'data/connect4/qtable_param_{key}_{run}.pkl')
+                    game = HeadlessConnect4(n=4)
+                    win_count = 0
+                    for i in range(num_games):
+                        # Here, we pit Q-learning (Player 1) against a random opponent (Player 2)
+                        winner = game.run_single_game(
+                            "qlearning", "random", q_agent, None, verbose=False)
+                        if winner == 1:
+                            win_count += 1
+                    # win rate in percentage
+                    wins.append(win_count / num_games * 100)
+                param_results[key] = wins
+                print(
+                    f"{key}: Mean win rate = {np.mean(wins):.2f}% ± {np.std(wins):.2f}% over {num_runs} runs")
+
+    # Plot the hyperparameter variation results:
+    keys = list(param_results.keys())
+    win_means = [np.mean(param_results[k]) for k in keys]
+    win_stds = [np.std(param_results[k]) for k in keys]
+
+    x = np.arange(len(keys))
+    fig, ax = plt.subplots(figsize=(15, 8))
+    ax.bar(x, win_means, yerr=win_stds, capsize=5)
+    ax.set_xticks(x)
+    ax.set_xticklabels(keys, rotation=45, ha='right')
+    ax.set_xlabel('Q-learning Hyperparameters')
+    ax.set_ylabel('Win Rate (%)')
+    ax.set_title(
+        'Effect of Q-learning Hyperparameters on Win Rate (vs Random)')
+    plt.tight_layout()
+    plt.savefig('qlearning_parameter_variation.png')
+    plt.close()
+
+    return param_results
 
 
 # -----------------------------
 # Main entry point
 # -----------------------------
 if __name__ == "__main__":
-    num_games = 100  # Adjust the number of games per combination as needed
+    num_games = 100  # Number of games per run (adjust as needed)
+    num_runs = 5     # Run each experiment 5 times to compute variance/SD
     print(
-        f"Starting Connect4 AI simulation with {num_games} games per combination...")
-    run_simulations(num_games, save_plots=True, verbose=False)
+        f"Starting Connect4 AI simulation with {num_games} games per run, over {num_runs} runs each...")
+    aggregated_results, runtime_results, ql_convergence_data = run_simulations_multiple_runs(
+        num_games, num_runs, save_plots=True, verbose=False)
+
+    # Run experiments to test Q-learning hyperparameter variation.
+    alphas = [0.1, 0.5]
+    gammas = [0.7, 0.9]
+    epsilons = [0.1, 0.3]
+    run_qlearning_parameter_experiments(
+        num_games, num_runs, alphas, gammas, epsilons)

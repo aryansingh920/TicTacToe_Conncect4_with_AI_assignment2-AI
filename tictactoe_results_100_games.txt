@@ -1,83 +1,797 @@
-TicTacToe AI Simulation Results (100 games per combination)
-Total time: 304.10 seconds
+(.venv) (base) aryansingh@Aryans-MacBook-Air assignment2 % python -u "/Users/aryansingh/Documents/ai/assignment2/src/main.py"
+Starting TicTacToe AI simulation with 100 games per combination...
+Q-table loaded from data/tictactoe/headless_qtable.pkl
+Running random vs random (1/16)...
+  Results for random vs random:
+    X wins: 57 (57.0%)
+    O wins: 37 (37.0%)
+    Draws: 6 (6.0%)
+    Average game time: 0.0000 sec (std: 0.0000 sec)
 
+Running random vs minimax (2/16)...
+  Results for random vs minimax:
+    X wins: 0 (0.0%)
+    O wins: 80 (80.0%)
+    Draws: 20 (20.0%)
+    Average game time: 0.0736 sec (std: 0.0043 sec)
+
+Running random vs alpha-beta (3/16)...
+  Results for random vs alpha-beta:
+    X wins: 0 (0.0%)
+    O wins: 86 (86.0%)
+    Draws: 14 (14.0%)
+    Average game time: 0.0058 sec (std: 0.0012 sec)
+
+Running random vs qlearning (4/16)...
+  Results for random vs qlearning:
+    X wins: 48 (48.0%)
+    O wins: 43 (43.0%)
+    Draws: 9 (9.0%)
+    Average game time: 0.0009 sec (std: 0.0001 sec)
+
+Running minimax vs random (5/16)...
+  Results for minimax vs random:
+    X wins: 100 (100.0%)
+    O wins: 0 (0.0%)
+    Draws: 0 (0.0%)
+    Average game time: 0.6428 sec (std: 0.0048 sec)
+
+Running minimax vs minimax (6/16)...
+  Results for minimax vs minimax:
+    X wins: 0 (0.0%)
+    O wins: 0 (0.0%)
+    Draws: 100 (100.0%)
+    Average game time: 0.7129 sec (std: 0.0048 sec)
+
+Running minimax vs alpha-beta (7/16)...
+  Results for minimax vs alpha-beta:
+    X wins: 0 (0.0%)
+    O wins: 0 (0.0%)
+    Draws: 100 (100.0%)
+    Average game time: 0.6539 sec (std: 0.0201 sec)
+
+Running minimax vs qlearning (8/16)...
+  Results for minimax vs qlearning:
+    X wins: 99 (99.0%)
+    O wins: 0 (0.0%)
+    Draws: 1 (1.0%)
+    Average game time: 0.6442 sec (std: 0.0017 sec)
+
+Running alpha-beta vs random (9/16)...
+  Results for alpha-beta vs random:
+    X wins: 100 (100.0%)
+    O wins: 0 (0.0%)
+    Draws: 0 (0.0%)
+    Average game time: 0.0296 sec (std: 0.0003 sec)
+
+Running alpha-beta vs minimax (10/16)...
+  Results for alpha-beta vs minimax:
+    X wins: 0 (0.0%)
+    O wins: 0 (0.0%)
+    Draws: 100 (100.0%)
+    Average game time: 0.1000 sec (std: 0.0002 sec)
+
+Running alpha-beta vs alpha-beta (11/16)...
+  Results for alpha-beta vs alpha-beta:
+    X wins: 0 (0.0%)
+    O wins: 0 (0.0%)
+    Draws: 100 (100.0%)
+    Average game time: 0.0342 sec (std: 0.0040 sec)
+
+Running alpha-beta vs qlearning (12/16)...
+  Results for alpha-beta vs qlearning:
+    X wins: 98 (98.0%)
+    O wins: 0 (0.0%)
+    Draws: 2 (2.0%)
+    Average game time: 0.0312 sec (std: 0.0021 sec)
+
+Running qlearning vs random (13/16)...
+  Results for qlearning vs random:
+    X wins: 87 (87.0%)
+    O wins: 6 (6.0%)
+    Draws: 7 (7.0%)
+    Average game time: 0.0008 sec (std: 0.0000 sec)
+
+Running qlearning vs minimax (14/16)...
+  Results for qlearning vs minimax:
+    X wins: 0 (0.0%)
+    O wins: 15 (15.0%)
+    Draws: 85 (85.0%)
+    Average game time: 0.0723 sec (std: 0.0044 sec)
+
+Running qlearning vs alpha-beta (15/16)...
+  Results for qlearning vs alpha-beta:
+    X wins: 0 (0.0%)
+    O wins: 19 (19.0%)
+    Draws: 81 (81.0%)
+    Average game time: 0.0052 sec (std: 0.0007 sec)
+
+Running qlearning vs qlearning (16/16)...
+  Results for qlearning vs qlearning:
+    X wins: 88 (88.0%)
+    O wins: 5 (5.0%)
+    Draws: 7 (7.0%)
+    Average game time: 0.0016 sec (std: 0.0000 sec)
+
+Total simulation time: 300.92 seconds for 16 combinations of 100 games each
+2025-04-03 12:16:41.622 Python[94911:1813990] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/jx/gsrb4w693h1b2kyl21zw93gr0000gn/T/org.python.python.savedState
+Q-table loaded from data/tictactoe/headless_qtable.pkl
+Running random vs random (1/16)...
+  Results for random vs random:
+    X wins: 54 (54.0%)
+    O wins: 34 (34.0%)
+    Draws: 12 (12.0%)
+    Average game time: 0.0000 sec (std: 0.0000 sec)
+
+Running random vs minimax (2/16)...
+  Results for random vs minimax:
+    X wins: 0 (0.0%)
+    O wins: 82 (82.0%)
+    Draws: 18 (18.0%)
+    Average game time: 0.0719 sec (std: 0.0035 sec)
+
+Running random vs alpha-beta (3/16)...
+  Results for random vs alpha-beta:
+    X wins: 0 (0.0%)
+    O wins: 83 (83.0%)
+    Draws: 17 (17.0%)
+    Average game time: 0.0057 sec (std: 0.0012 sec)
+
+Running random vs qlearning (4/16)...
+  Results for random vs qlearning:
+    X wins: 57 (57.0%)
+    O wins: 39 (39.0%)
+    Draws: 4 (4.0%)
+    Average game time: 0.0009 sec (std: 0.0001 sec)
+
+Running minimax vs random (5/16)...
+  Results for minimax vs random:
+    X wins: 99 (99.0%)
+    O wins: 0 (0.0%)
+    Draws: 1 (1.0%)
+    Average game time: 0.6410 sec (std: 0.0014 sec)
+
+Running minimax vs minimax (6/16)...
+  Results for minimax vs minimax:
+    X wins: 0 (0.0%)
+    O wins: 0 (0.0%)
+    Draws: 100 (100.0%)
+    Average game time: 0.7115 sec (std: 0.0035 sec)
+
+Running minimax vs alpha-beta (7/16)...
+  Results for minimax vs alpha-beta:
+    X wins: 0 (0.0%)
+    O wins: 0 (0.0%)
+    Draws: 100 (100.0%)
+    Average game time: 0.6446 sec (std: 0.0019 sec)
+
+Running minimax vs qlearning (8/16)...
+  Results for minimax vs qlearning:
+    X wins: 100 (100.0%)
+    O wins: 0 (0.0%)
+    Draws: 0 (0.0%)
+    Average game time: 2.6310 sec (std: 19.8497 sec)
+
+Running alpha-beta vs random (9/16)...
+  Results for alpha-beta vs random:
+    X wins: 99 (99.0%)
+    O wins: 0 (0.0%)
+    Draws: 1 (1.0%)
+    Average game time: 0.0296 sec (std: 0.0003 sec)
+
+Running alpha-beta vs minimax (10/16)...
+  Results for alpha-beta vs minimax:
+    X wins: 0 (0.0%)
+    O wins: 0 (0.0%)
+    Draws: 100 (100.0%)
+    Average game time: 0.1002 sec (std: 0.0004 sec)
+
+Running alpha-beta vs alpha-beta (11/16)...
+  Results for alpha-beta vs alpha-beta:
+    X wins: 0 (0.0%)
+    O wins: 0 (0.0%)
+    Draws: 100 (100.0%)
+    Average game time: 0.0338 sec (std: 0.0001 sec)
+
+Running alpha-beta vs qlearning (12/16)...
+  Results for alpha-beta vs qlearning:
+    X wins: 100 (100.0%)
+    O wins: 0 (0.0%)
+    Draws: 0 (0.0%)
+    Average game time: 0.0310 sec (std: 0.0002 sec)
+
+Running qlearning vs random (13/16)...
+  Results for qlearning vs random:
+    X wins: 83 (83.0%)
+    O wins: 9 (9.0%)
+    Draws: 8 (8.0%)
+    Average game time: 0.0008 sec (std: 0.0000 sec)
+
+Running qlearning vs minimax (14/16)...
+  Results for qlearning vs minimax:
+    X wins: 0 (0.0%)
+    O wins: 18 (18.0%)
+    Draws: 82 (82.0%)
+    Average game time: 0.0718 sec (std: 0.0011 sec)
+
+Running qlearning vs alpha-beta (15/16)...
+  Results for qlearning vs alpha-beta:
+    X wins: 0 (0.0%)
+    O wins: 20 (20.0%)
+    Draws: 80 (80.0%)
+    Average game time: 0.0053 sec (std: 0.0006 sec)
+
+Running qlearning vs qlearning (16/16)...
+  Results for qlearning vs qlearning:
+    X wins: 82 (82.0%)
+    O wins: 8 (8.0%)
+    Draws: 10 (10.0%)
+    Average game time: 0.0018 sec (std: 0.0001 sec)
+
+Total simulation time: 498.11 seconds for 16 combinations of 100 games each
+Q-table loaded from data/tictactoe/headless_qtable.pkl
+Running random vs random (1/16)...
+  Results for random vs random:
+    X wins: 61 (61.0%)
+    O wins: 26 (26.0%)
+    Draws: 13 (13.0%)
+    Average game time: 0.0000 sec (std: 0.0000 sec)
+
+Running random vs minimax (2/16)...
+  Results for random vs minimax:
+    X wins: 0 (0.0%)
+    O wins: 81 (81.0%)
+    Draws: 19 (19.0%)
+    Average game time: 0.0709 sec (std: 0.0037 sec)
+
+Running random vs alpha-beta (3/16)...
+  Results for random vs alpha-beta:
+    X wins: 0 (0.0%)
+    O wins: 77 (77.0%)
+    Draws: 23 (23.0%)
+    Average game time: 0.0057 sec (std: 0.0014 sec)
+
+Running random vs qlearning (4/16)...
+  Results for random vs qlearning:
+    X wins: 61 (61.0%)
+    O wins: 38 (38.0%)
+    Draws: 1 (1.0%)
+    Average game time: 0.0010 sec (std: 0.0001 sec)
+
+Running minimax vs random (5/16)...
+  Results for minimax vs random:
+    X wins: 99 (99.0%)
+    O wins: 0 (0.0%)
+    Draws: 1 (1.0%)
+    Average game time: 0.6440 sec (std: 0.0043 sec)
+
+Running minimax vs minimax (6/16)...
+  Results for minimax vs minimax:
+    X wins: 0 (0.0%)
+    O wins: 0 (0.0%)
+    Draws: 100 (100.0%)
+    Average game time: 0.7132 sec (std: 0.0029 sec)
+
+Running minimax vs alpha-beta (7/16)...
+  Results for minimax vs alpha-beta:
+    X wins: 0 (0.0%)
+    O wins: 0 (0.0%)
+    Draws: 100 (100.0%)
+    Average game time: 0.6452 sec (std: 0.0014 sec)
+
+Running minimax vs qlearning (8/16)...
+  Results for minimax vs qlearning:
+    X wins: 99 (99.0%)
+    O wins: 0 (0.0%)
+    Draws: 1 (1.0%)
+    Average game time: 0.6441 sec (std: 0.0021 sec)
+
+Running alpha-beta vs random (9/16)...
+  Results for alpha-beta vs random:
+    X wins: 100 (100.0%)
+    O wins: 0 (0.0%)
+    Draws: 0 (0.0%)
+    Average game time: 0.0297 sec (std: 0.0003 sec)
+
+Running alpha-beta vs minimax (10/16)...
+  Results for alpha-beta vs minimax:
+    X wins: 0 (0.0%)
+    O wins: 0 (0.0%)
+    Draws: 100 (100.0%)
+    Average game time: 0.1002 sec (std: 0.0008 sec)
+
+Running alpha-beta vs alpha-beta (11/16)...
+  Results for alpha-beta vs alpha-beta:
+    X wins: 0 (0.0%)
+    O wins: 0 (0.0%)
+    Draws: 100 (100.0%)
+    Average game time: 0.0339 sec (std: 0.0003 sec)
+
+Running alpha-beta vs qlearning (12/16)...
+  Results for alpha-beta vs qlearning:
+    X wins: 97 (97.0%)
+    O wins: 0 (0.0%)
+    Draws: 3 (3.0%)
+    Average game time: 0.0311 sec (std: 0.0003 sec)
+
+Running qlearning vs random (13/16)...
+  Results for qlearning vs random:
+    X wins: 84 (84.0%)
+    O wins: 8 (8.0%)
+    Draws: 8 (8.0%)
+    Average game time: 0.0009 sec (std: 0.0000 sec)
+
+Running qlearning vs minimax (14/16)...
+  Results for qlearning vs minimax:
+    X wins: 0 (0.0%)
+    O wins: 14 (14.0%)
+    Draws: 86 (86.0%)
+    Average game time: 0.0716 sec (std: 0.0015 sec)
+
+Running qlearning vs alpha-beta (15/16)...
+  Results for qlearning vs alpha-beta:
+    X wins: 0 (0.0%)
+    O wins: 15 (15.0%)
+    Draws: 85 (85.0%)
+    Average game time: 0.0051 sec (std: 0.0006 sec)
+
+Running qlearning vs qlearning (16/16)...
+  Results for qlearning vs qlearning:
+    X wins: 87 (87.0%)
+    O wins: 4 (4.0%)
+    Draws: 9 (9.0%)
+    Average game time: 0.0019 sec (std: 0.0001 sec)
+
+Total simulation time: 299.86 seconds for 16 combinations of 100 games each
+Q-table loaded from data/tictactoe/headless_qtable.pkl
+Running random vs random (1/16)...
+  Results for random vs random:
+    X wins: 56 (56.0%)
+    O wins: 37 (37.0%)
+    Draws: 7 (7.0%)
+    Average game time: 0.0000 sec (std: 0.0000 sec)
+
+Running random vs minimax (2/16)...
+  Results for random vs minimax:
+    X wins: 0 (0.0%)
+    O wins: 74 (74.0%)
+    Draws: 26 (26.0%)
+    Average game time: 0.0721 sec (std: 0.0032 sec)
+
+Running random vs alpha-beta (3/16)...
+  Results for random vs alpha-beta:
+    X wins: 0 (0.0%)
+    O wins: 83 (83.0%)
+    Draws: 17 (17.0%)
+    Average game time: 0.0054 sec (std: 0.0012 sec)
+
+Running random vs qlearning (4/16)...
+  Results for random vs qlearning:
+    X wins: 52 (52.0%)
+    O wins: 41 (41.0%)
+    Draws: 7 (7.0%)
+    Average game time: 0.0009 sec (std: 0.0001 sec)
+
+Running minimax vs random (5/16)...
+  Results for minimax vs random:
+    X wins: 100 (100.0%)
+    O wins: 0 (0.0%)
+    Draws: 0 (0.0%)
+    Average game time: 0.6407 sec (std: 0.0013 sec)
+
+Running minimax vs minimax (6/16)...
+  Results for minimax vs minimax:
+    X wins: 0 (0.0%)
+    O wins: 0 (0.0%)
+    Draws: 100 (100.0%)
+    Average game time: 0.7127 sec (std: 0.0035 sec)
+
+Running minimax vs alpha-beta (7/16)...
+  Results for minimax vs alpha-beta:
+    X wins: 0 (0.0%)
+    O wins: 0 (0.0%)
+    Draws: 100 (100.0%)
+    Average game time: 0.6453 sec (std: 0.0012 sec)
+
+Running minimax vs qlearning (8/16)...
+  Results for minimax vs qlearning:
+    X wins: 98 (98.0%)
+    O wins: 0 (0.0%)
+    Draws: 2 (2.0%)
+    Average game time: 0.6446 sec (std: 0.0032 sec)
+
+Running alpha-beta vs random (9/16)...
+  Results for alpha-beta vs random:
+    X wins: 100 (100.0%)
+    O wins: 0 (0.0%)
+    Draws: 0 (0.0%)
+    Average game time: 0.0296 sec (std: 0.0003 sec)
+
+Running alpha-beta vs minimax (10/16)...
+  Results for alpha-beta vs minimax:
+    X wins: 0 (0.0%)
+    O wins: 0 (0.0%)
+    Draws: 100 (100.0%)
+    Average game time: 0.1002 sec (std: 0.0006 sec)
+
+Running alpha-beta vs alpha-beta (11/16)...
+  Results for alpha-beta vs alpha-beta:
+    X wins: 0 (0.0%)
+    O wins: 0 (0.0%)
+    Draws: 100 (100.0%)
+    Average game time: 0.0339 sec (std: 0.0001 sec)
+
+Running alpha-beta vs qlearning (12/16)...
+  Results for alpha-beta vs qlearning:
+    X wins: 100 (100.0%)
+    O wins: 0 (0.0%)
+    Draws: 0 (0.0%)
+    Average game time: 0.0312 sec (std: 0.0002 sec)
+
+Running qlearning vs random (13/16)...
+  Results for qlearning vs random:
+    X wins: 78 (78.0%)
+    O wins: 15 (15.0%)
+    Draws: 7 (7.0%)
+    Average game time: 0.0009 sec (std: 0.0000 sec)
+
+Running qlearning vs minimax (14/16)...
+  Results for qlearning vs minimax:
+    X wins: 0 (0.0%)
+    O wins: 16 (16.0%)
+    Draws: 84 (84.0%)
+    Average game time: 0.0717 sec (std: 0.0010 sec)
+
+Running qlearning vs alpha-beta (15/16)...
+  Results for qlearning vs alpha-beta:
+    X wins: 0 (0.0%)
+    O wins: 20 (20.0%)
+    Draws: 80 (80.0%)
+    Average game time: 0.0051 sec (std: 0.0005 sec)
+
+Running qlearning vs qlearning (16/16)...
+  Results for qlearning vs qlearning:
+    X wins: 83 (83.0%)
+    O wins: 7 (7.0%)
+    Draws: 10 (10.0%)
+    Average game time: 0.0019 sec (std: 0.0001 sec)
+
+Total simulation time: 299.65 seconds for 16 combinations of 100 games each
+Q-table loaded from data/tictactoe/headless_qtable.pkl
+Running random vs random (1/16)...
+  Results for random vs random:
+    X wins: 57 (57.0%)
+    O wins: 21 (21.0%)
+    Draws: 22 (22.0%)
+    Average game time: 0.0000 sec (std: 0.0000 sec)
+
+Running random vs minimax (2/16)...
+  Results for random vs minimax:
+    X wins: 0 (0.0%)
+    O wins: 80 (80.0%)
+    Draws: 20 (20.0%)
+    Average game time: 0.0715 sec (std: 0.0032 sec)
+
+Running random vs alpha-beta (3/16)...
+  Results for random vs alpha-beta:
+    X wins: 0 (0.0%)
+    O wins: 78 (78.0%)
+    Draws: 22 (22.0%)
+    Average game time: 0.0058 sec (std: 0.0013 sec)
+
+Running random vs qlearning (4/16)...
+  Results for random vs qlearning:
+    X wins: 50 (50.0%)
+    O wins: 41 (41.0%)
+    Draws: 9 (9.0%)
+    Average game time: 0.0010 sec (std: 0.0001 sec)
+
+Running minimax vs random (5/16)...
+  Results for minimax vs random:
+    X wins: 99 (99.0%)
+    O wins: 0 (0.0%)
+    Draws: 1 (1.0%)
+    Average game time: 0.6411 sec (std: 0.0016 sec)
+
+Running minimax vs minimax (6/16)...
+  Results for minimax vs minimax:
+    X wins: 0 (0.0%)
+    O wins: 0 (0.0%)
+    Draws: 100 (100.0%)
+    Average game time: 7.3207 sec (std: 43.7715 sec)
+
+Running minimax vs alpha-beta (7/16)...
+  Results for minimax vs alpha-beta:
+    X wins: 0 (0.0%)
+    O wins: 0 (0.0%)
+    Draws: 100 (100.0%)
+    Average game time: 0.6561 sec (std: 0.0009 sec)
+
+Running minimax vs qlearning (8/16)...
+  Results for minimax vs qlearning:
+    X wins: 100 (100.0%)
+    O wins: 0 (0.0%)
+    Draws: 0 (0.0%)
+    Average game time: 0.6537 sec (std: 0.0019 sec)
+
+Running alpha-beta vs random (9/16)...
+  Results for alpha-beta vs random:
+    X wins: 99 (99.0%)
+    O wins: 0 (0.0%)
+    Draws: 1 (1.0%)
+    Average game time: 0.0302 sec (std: 0.0003 sec)
+
+Running alpha-beta vs minimax (10/16)...
+  Results for alpha-beta vs minimax:
+    X wins: 0 (0.0%)
+    O wins: 0 (0.0%)
+    Draws: 100 (100.0%)
+    Average game time: 0.1019 sec (std: 0.0003 sec)
+
+Running alpha-beta vs alpha-beta (11/16)...
+  Results for alpha-beta vs alpha-beta:
+    X wins: 0 (0.0%)
+    O wins: 0 (0.0%)
+    Draws: 100 (100.0%)
+    Average game time: 0.0345 sec (std: 0.0007 sec)
+
+Running alpha-beta vs qlearning (12/16)...
+  Results for alpha-beta vs qlearning:
+    X wins: 100 (100.0%)
+    O wins: 0 (0.0%)
+    Draws: 0 (0.0%)
+    Average game time: 0.0318 sec (std: 0.0004 sec)
+
+Running qlearning vs random (13/16)...
+  Results for qlearning vs random:
+    X wins: 84 (84.0%)
+    O wins: 8 (8.0%)
+    Draws: 8 (8.0%)
+    Average game time: 0.0010 sec (std: 0.0001 sec)
+
+Running qlearning vs minimax (14/16)...
+  Results for qlearning vs minimax:
+    X wins: 0 (0.0%)
+    O wins: 20 (20.0%)
+    Draws: 80 (80.0%)
+    Average game time: 0.0732 sec (std: 0.0017 sec)
+
+Running qlearning vs alpha-beta (15/16)...
+  Results for qlearning vs alpha-beta:
+    X wins: 0 (0.0%)
+    O wins: 13 (13.0%)
+    Draws: 87 (87.0%)
+    Average game time: 0.0053 sec (std: 0.0003 sec)
+
+Running qlearning vs qlearning (16/16)...
+  Results for qlearning vs qlearning:
+    X wins: 91 (91.0%)
+    O wins: 4 (4.0%)
+    Draws: 5 (5.0%)
+    Average game time: 0.0020 sec (std: 0.0000 sec)
+
+Total simulation time: 962.99 seconds for 16 combinations of 100 games each
+Q-table loaded from data/tictactoe/headless_qtable.pkl
+Running random vs random (1/16)...
+  Results for random vs random:
+    X wins: 60 (60.0%)
+    O wins: 26 (26.0%)
+    Draws: 14 (14.0%)
+    Average game time: 0.0000 sec (std: 0.0000 sec)
+
+Running random vs minimax (2/16)...
+  Results for random vs minimax:
+    X wins: 0 (0.0%)
+    O wins: 85 (85.0%)
+    Draws: 15 (15.0%)
+    Average game time: 0.0734 sec (std: 0.0031 sec)
+
+Running random vs alpha-beta (3/16)...
+  Results for random vs alpha-beta:
+    X wins: 0 (0.0%)
+    O wins: 81 (81.0%)
+    Draws: 19 (19.0%)
+    Average game time: 0.0058 sec (std: 0.0014 sec)
+
+Running random vs qlearning (4/16)...
+  Results for random vs qlearning:
+    X wins: 63 (63.0%)
+    O wins: 31 (31.0%)
+    Draws: 6 (6.0%)
+    Average game time: 0.0011 sec (std: 0.0001 sec)
+
+Running minimax vs random (5/16)...
+  Results for minimax vs random:
+    X wins: 100 (100.0%)
+    O wins: 0 (0.0%)
+    Draws: 0 (0.0%)
+    Average game time: 0.6555 sec (std: 0.0029 sec)
+
+Running minimax vs minimax (6/16)...
+  Results for minimax vs minimax:
+    X wins: 0 (0.0%)
+    O wins: 0 (0.0%)
+    Draws: 100 (100.0%)
+    Average game time: 0.7280 sec (std: 0.0031 sec)
+
+Running minimax vs alpha-beta (7/16)...
+  Results for minimax vs alpha-beta:
+    X wins: 0 (0.0%)
+    O wins: 0 (0.0%)
+    Draws: 100 (100.0%)
+    Average game time: 0.6589 sec (std: 0.0040 sec)
+
+Running minimax vs qlearning (8/16)...
+  Results for minimax vs qlearning:
+    X wins: 100 (100.0%)
+    O wins: 0 (0.0%)
+    Draws: 0 (0.0%)
+    Average game time: 0.6580 sec (std: 0.0088 sec)
+
+Running alpha-beta vs random (9/16)...
+  Results for alpha-beta vs random:
+    X wins: 99 (99.0%)
+    O wins: 0 (0.0%)
+    Draws: 1 (1.0%)
+    Average game time: 0.0302 sec (std: 0.0003 sec)
+
+Running alpha-beta vs minimax (10/16)...
+  Results for alpha-beta vs minimax:
+    X wins: 0 (0.0%)
+    O wins: 0 (0.0%)
+    Draws: 100 (100.0%)
+    Average game time: 0.1018 sec (std: 0.0005 sec)
+
+Running alpha-beta vs alpha-beta (11/16)...
+  Results for alpha-beta vs alpha-beta:
+    X wins: 0 (0.0%)
+    O wins: 0 (0.0%)
+    Draws: 100 (100.0%)
+    Average game time: 0.0344 sec (std: 0.0001 sec)
+
+Running alpha-beta vs qlearning (12/16)...
+  Results for alpha-beta vs qlearning:
+    X wins: 99 (99.0%)
+    O wins: 0 (0.0%)
+    Draws: 1 (1.0%)
+    Average game time: 0.0316 sec (std: 0.0003 sec)
+
+Running qlearning vs random (13/16)...
+  Results for qlearning vs random:
+    X wins: 82 (82.0%)
+    O wins: 9 (9.0%)
+    Draws: 9 (9.0%)
+    Average game time: 0.0011 sec (std: 0.0001 sec)
+
+Running qlearning vs minimax (14/16)...
+  Results for qlearning vs minimax:
+    X wins: 0 (0.0%)
+    O wins: 12 (12.0%)
+    Draws: 88 (88.0%)
+    Average game time: 0.0729 sec (std: 0.0010 sec)
+
+Running qlearning vs alpha-beta (15/16)...
+  Results for qlearning vs alpha-beta:
+    X wins: 0 (0.0%)
+    O wins: 16 (16.0%)
+    Draws: 84 (84.0%)
+    Average game time: 0.0054 sec (std: 0.0009 sec)
+
+Running qlearning vs qlearning (16/16)...
+  Results for qlearning vs qlearning:
+    X wins: 92 (92.0%)
+    O wins: 2 (2.0%)
+    Draws: 6 (6.0%)
+    Average game time: 0.0021 sec (std: 0.0001 sec)
+
+Total simulation time: 306.03 seconds for 16 combinations of 100 games each
+
+--- Aggregated Results over 5 runs (100 games each) ---
 Results for random vs random:
-  X wins: 52 (52.0%)
-  O wins: 31 (31.0%)
-  Draws: 17 (17.0%)
+  X wins: 57.6 ± 2.8809720581775866
+  O wins: 28.8 ± 6.534523701081817
+  Draws:  13.6 ± 5.412947441089743
+  Average game time: 0.0000 sec ± 0.0000 sec
 
 Results for random vs minimax:
-  X wins: 0 (0.0%)
-  O wins: 84 (84.0%)
-  Draws: 16 (16.0%)
+  X wins: 0 ± 0.0
+  O wins: 80.4 ± 4.03732584763727
+  Draws:  19.6 ± 4.03732584763727
+  Average game time: 0.0720 sec ± 0.0009 sec
 
 Results for random vs alpha-beta:
-  X wins: 0 (0.0%)
-  O wins: 79 (79.0%)
-  Draws: 21 (21.0%)
+  X wins: 0 ± 0.0
+  O wins: 80.4 ± 2.792848008753788
+  Draws:  19.6 ± 2.792848008753788
+  Average game time: 0.0057 sec ± 0.0001 sec
 
 Results for random vs qlearning:
-  X wins: 54 (54.0%)
-  O wins: 44 (44.0%)
-  Draws: 2 (2.0%)
+  X wins: 56.6 ± 5.594640292279746
+  O wins: 38 ± 4.123105625617661
+  Draws:  5.4 ± 3.0495901363953815
+  Average game time: 0.0010 sec ± 0.0001 sec
 
 Results for minimax vs random:
-  X wins: 100 (100.0%)
-  O wins: 0 (0.0%)
-  Draws: 0 (0.0%)
+  X wins: 99.4 ± 0.5477225575051661
+  O wins: 0 ± 0.0
+  Draws:  0.6 ± 0.5477225575051661
+  Average game time: 0.6444 sec ± 0.0063 sec
 
 Results for minimax vs minimax:
-  X wins: 0 (0.0%)
-  O wins: 0 (0.0%)
-  Draws: 100 (100.0%)
+  X wins: 0 ± 0.0
+  O wins: 0 ± 0.0
+  Draws:  100 ± 0.0
+  Average game time: 2.0372 sec ± 2.9536 sec
 
 Results for minimax vs alpha-beta:
-  X wins: 0 (0.0%)
-  O wins: 0 (0.0%)
-  Draws: 100 (100.0%)
+  X wins: 0 ± 0.0
+  O wins: 0 ± 0.0
+  Draws:  100 ± 0.0
+  Average game time: 0.6500 sec ± 0.0069 sec
 
 Results for minimax vs qlearning:
-  X wins: 97 (97.0%)
-  O wins: 0 (0.0%)
-  Draws: 3 (3.0%)
+  X wins: 99.4 ± 0.8944271909999159
+  O wins: 0 ± 0.0
+  Draws:  0.6 ± 0.8944271909999159
+  Average game time: 1.0463 sec ± 0.8859 sec
 
 Results for alpha-beta vs random:
-  X wins: 100 (100.0%)
-  O wins: 0 (0.0%)
-  Draws: 0 (0.0%)
+  X wins: 99.4 ± 0.5477225575051661
+  O wins: 0 ± 0.0
+  Draws:  0.6 ± 0.5477225575051661
+  Average game time: 0.0299 sec ± 0.0003 sec
 
 Results for alpha-beta vs minimax:
-  X wins: 0 (0.0%)
-  O wins: 0 (0.0%)
-  Draws: 100 (100.0%)
+  X wins: 0 ± 0.0
+  O wins: 0 ± 0.0
+  Draws:  100 ± 0.0
+  Average game time: 0.1009 sec ± 0.0009 sec
 
 Results for alpha-beta vs alpha-beta:
-  X wins: 0 (0.0%)
-  O wins: 0 (0.0%)
-  Draws: 100 (100.0%)
+  X wins: 0 ± 0.0
+  O wins: 0 ± 0.0
+  Draws:  100 ± 0.0
+  Average game time: 0.0341 sec ± 0.0003 sec
 
 Results for alpha-beta vs qlearning:
-  X wins: 97 (97.0%)
-  O wins: 0 (0.0%)
-  Draws: 3 (3.0%)
+  X wins: 99.2 ± 1.3038404810405297
+  O wins: 0 ± 0.0
+  Draws:  0.8 ± 1.3038404810405297
+  Average game time: 0.0313 sec ± 0.0004 sec
 
 Results for qlearning vs random:
-  X wins: 78 (78.0%)
-  O wins: 18 (18.0%)
-  Draws: 4 (4.0%)
+  X wins: 82.2 ± 2.4899799195977463
+  O wins: 9.8 ± 2.9495762407505253
+  Draws:  8 ± 0.7071067811865476
+  Average game time: 0.0010 sec ± 0.0001 sec
 
 Results for qlearning vs minimax:
-  X wins: 0 (0.0%)
-  O wins: 20 (20.0%)
-  Draws: 80 (80.0%)
+  X wins: 0 ± 0.0
+  O wins: 16 ± 3.1622776601683795
+  Draws:  84 ± 3.1622776601683795
+  Average game time: 0.0723 sec ± 0.0007 sec
 
 Results for qlearning vs alpha-beta:
-  X wins: 0 (0.0%)
-  O wins: 22 (22.0%)
-  Draws: 78 (78.0%)
+  X wins: 0 ± 0.0
+  O wins: 16.8 ± 3.1144823004794873
+  Draws:  83.2 ± 3.1144823004794873
+  Average game time: 0.0052 sec ± 0.0001 sec
 
 Results for qlearning vs qlearning:
-  X wins: 81 (81.0%)
-  O wins: 9 (9.0%)
-  Draws: 10 (10.0%)
+  X wins: 87 ± 4.527692569068709
+  O wins: 5 ± 2.449489742783178
+  Draws:  8 ± 2.345207879911715
+  Average game time: 0.0019 sec ± 0.0001 sec
 
+Q-table loaded from data/tictactoe/headless_qtable.pkl
+Q-learning convergence plot saved as 'qlearning_convergence.png'.
+Parameters: alpha=0.1, gamma=0.7, epsilon=0.1 => Win Rate: 79.3% ± 1.7%
+Parameters: alpha=0.1, gamma=0.7, epsilon=0.3 => Win Rate: 71.7% ± 2.5%
+Parameters: alpha=0.1, gamma=0.9, epsilon=0.1 => Win Rate: 79.3% ± 1.7%
+Parameters: alpha=0.1, gamma=0.9, epsilon=0.3 => Win Rate: 71.7% ± 2.5%
+Parameters: alpha=0.5, gamma=0.7, epsilon=0.1 => Win Rate: 79.3% ± 1.7%
+Parameters: alpha=0.5, gamma=0.7, epsilon=0.3 => Win Rate: 71.7% ± 2.5%
+Parameters: alpha=0.5, gamma=0.9, epsilon=0.1 => Win Rate: 79.3% ± 1.7%
+Parameters: alpha=0.5, gamma=0.9, epsilon=0.3 => Win Rate: 71.7% ± 2.5%
+Q-learning hyperparameter variation plot saved as 'qlearning_parameter_variation.png'.
+(.venv) (base) aryansingh@Aryans-MacBook-Air assignment2 % 

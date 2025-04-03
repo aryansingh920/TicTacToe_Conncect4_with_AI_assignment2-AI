@@ -1,0 +1,230 @@
+python -u "/Users/aryansingh/Documents/ai/assignment2/src/main.py"
+(.venv) (base) aryansingh@Aryans-MacBook-Air assignment2 % python -u "/Users/aryansingh/Documents/ai/assignme
+nt2/src/main.py"
+Starting Connect4 AI simulation with 100 games per run, over 5 runs each...
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Results for random vs random over 5 runs of 100 games each:
+  Red wins: 32.20 ± 1.83
+  Yellow wins: 22.60 ± 2.80
+  Draws: 45.20 ± 1.47
+  Average runtime: 0.00s ± 0.00s
+
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Results for random vs minimax over 5 runs of 100 games each:
+  Red wins: 0.20 ± 0.40
+  Yellow wins: 71.00 ± 4.69
+  Draws: 28.80 ± 4.45
+  Average runtime: 16.88s ± 0.20s
+
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Results for random vs alpha-beta over 5 runs of 100 games each:
+  Red wins: 0.20 ± 0.40
+  Yellow wins: 71.00 ± 4.69
+  Draws: 28.80 ± 4.45
+  Average runtime: 3.14s ± 0.09s
+
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Results for random vs qlearning over 5 runs of 100 games each:
+  Red wins: 34.80 ± 4.96
+  Yellow wins: 42.80 ± 3.49
+  Draws: 22.40 ± 3.01
+  Average runtime: 0.02s ± 0.00s
+
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Results for minimax vs random over 5 runs of 100 games each:
+  Red wins: 71.40 ± 3.38
+  Yellow wins: 1.40 ± 1.02
+  Draws: 27.20 ± 4.07
+  Average runtime: 19.49s ± 0.21s
+
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Results for minimax vs minimax over 5 runs of 100 games each:
+  Red wins: 0.00 ± 0.00
+  Yellow wins: 0.00 ± 0.00
+  Draws: 100.00 ± 0.00
+  Average runtime: 33.90s ± 0.16s
+
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Results for minimax vs alpha-beta over 5 runs of 100 games each:
+  Red wins: 0.00 ± 0.00
+  Yellow wins: 0.00 ± 0.00
+  Draws: 100.00 ± 0.00
+  Average runtime: 22.47s ± 0.05s
+
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Results for minimax vs qlearning over 5 runs of 100 games each:
+  Red wins: 90.80 ± 2.32
+  Yellow wins: 3.20 ± 1.72
+  Draws: 6.00 ± 1.26
+  Average runtime: 16.06s ± 0.04s
+
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Results for alpha-beta vs random over 5 runs of 100 games each:
+  Red wins: 71.40 ± 3.38
+  Yellow wins: 1.40 ± 1.02
+  Draws: 27.20 ± 4.07
+  Average runtime: 3.99s ± 0.08s
+
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Results for alpha-beta vs minimax over 5 runs of 100 games each:
+  Red wins: 0.00 ± 0.00
+  Yellow wins: 0.00 ± 0.00
+  Draws: 100.00 ± 0.00
+  Average runtime: 18.69s ± 0.12s
+
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Results for alpha-beta vs alpha-beta over 5 runs of 100 games each:
+  Red wins: 0.00 ± 0.00
+  Yellow wins: 0.00 ± 0.00
+  Draws: 100.00 ± 0.00
+  Average runtime: 7.17s ± 0.01s
+
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Results for alpha-beta vs qlearning over 5 runs of 100 games each:
+  Red wins: 90.80 ± 2.32
+  Yellow wins: 3.20 ± 1.72
+  Draws: 6.00 ± 1.26
+  Average runtime: 4.03s ± 0.04s
+
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Results for qlearning vs random over 5 runs of 100 games each:
+  Red wins: 50.80 ± 7.14
+  Yellow wins: 25.80 ± 5.49
+  Draws: 23.40 ± 2.42
+  Average runtime: 0.02s ± 0.00s
+
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Results for qlearning vs minimax over 5 runs of 100 games each:
+  Red wins: 0.00 ± 0.00
+  Yellow wins: 11.20 ± 4.35
+  Draws: 88.80 ± 4.35
+  Average runtime: 13.98s ± 0.27s
+
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Results for qlearning vs alpha-beta over 5 runs of 100 games each:
+  Red wins: 0.00 ± 0.00
+  Yellow wins: 11.20 ± 4.35
+  Draws: 88.80 ± 4.35
+  Average runtime: 2.78s ± 0.04s
+
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Results for qlearning vs qlearning over 5 runs of 100 games each:
+  Red wins: 14.40 ± 2.65
+  Yellow wins: 10.20 ± 2.71
+  Draws: 75.40 ± 3.88
+  Average runtime: 0.04s ± 0.00s
+
+2025-04-03 13:13:21.525 Python[96247:1844774] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/jx/gsrb4w693h1b2kyl21zw93gr0000gn/T/org.python.python.savedState
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+alpha_0.1_gamma_0.7_epsilon_0.1: Mean win rate = 51.40% ± 2.58% over 5 runs
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+alpha_0.1_gamma_0.7_epsilon_0.3: Mean win rate = 43.00% ± 6.99% over 5 runs
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+alpha_0.1_gamma_0.9_epsilon_0.1: Mean win rate = 51.40% ± 2.58% over 5 runs
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+alpha_0.1_gamma_0.9_epsilon_0.3: Mean win rate = 43.00% ± 6.99% over 5 runs
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+alpha_0.5_gamma_0.7_epsilon_0.1: Mean win rate = 51.40% ± 2.58% over 5 runs
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+alpha_0.5_gamma_0.7_epsilon_0.3: Mean win rate = 43.00% ± 6.99% over 5 runs
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+alpha_0.5_gamma_0.9_epsilon_0.1: Mean win rate = 51.40% ± 2.58% over 5 runs
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
+alpha_0.5_gamma_0.9_epsilon_0.3: Mean win rate = 43.00% ± 6.99% over 5 runs
+(.venv) (base) aryansingh@Aryans-MacBook-Air assignment2 % 
