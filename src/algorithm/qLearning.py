@@ -32,6 +32,8 @@ class QLearningAgent:
         self.q_table = collections.defaultdict(
             lambda: collections.defaultdict(float))
 
+
+
         self.load_qtable_if_exists()
 
     def get_state_key(self, board):
