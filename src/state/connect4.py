@@ -283,17 +283,17 @@ class Connect4StateManager:
 if __name__ == "__main__":
     # For demonstration, we use a 5x5 board.
     c4_manager = Connect4StateManager(
-        n=5,
-        cache_file='data/connect4/connect4_states_5x5.pkl',
-        log_file='data/connect4/generation_log_5x5.txt',
+        n=4,
+        cache_file='data/connect4/connect4_states_4x4.pkl',
+        log_file='data/connect4/generation_log_4x4.txt',
         log_frequency=100_000,
         use_parallel=True
     )
 
-    print("Total Connect4 states (5x5):", c4_manager.get_state_count())
+    print("Total Connect4 states (4x4):", c4_manager.get_state_count())
 
     # Test: get next possible moves from an empty 5x5 board.
-    empty_board_5x5 = [[0]*5 for _ in range(5)]
+    empty_board_5x5 = [[0]*4 for _ in range(4)]
     next_moves = c4_manager.get_next_possible_moves(empty_board_5x5)
     for move_info in next_moves:
         print(

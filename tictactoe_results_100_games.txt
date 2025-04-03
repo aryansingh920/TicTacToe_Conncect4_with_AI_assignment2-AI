@@ -1,0 +1,83 @@
+TicTacToe AI Simulation Results (100 games per combination)
+Total time: 304.10 seconds
+
+Results for random vs random:
+  X wins: 52 (52.0%)
+  O wins: 31 (31.0%)
+  Draws: 17 (17.0%)
+
+Results for random vs minimax:
+  X wins: 0 (0.0%)
+  O wins: 84 (84.0%)
+  Draws: 16 (16.0%)
+
+Results for random vs alpha-beta:
+  X wins: 0 (0.0%)
+  O wins: 79 (79.0%)
+  Draws: 21 (21.0%)
+
+Results for random vs qlearning:
+  X wins: 54 (54.0%)
+  O wins: 44 (44.0%)
+  Draws: 2 (2.0%)
+
+Results for minimax vs random:
+  X wins: 100 (100.0%)
+  O wins: 0 (0.0%)
+  Draws: 0 (0.0%)
+
+Results for minimax vs minimax:
+  X wins: 0 (0.0%)
+  O wins: 0 (0.0%)
+  Draws: 100 (100.0%)
+
+Results for minimax vs alpha-beta:
+  X wins: 0 (0.0%)
+  O wins: 0 (0.0%)
+  Draws: 100 (100.0%)
+
+Results for minimax vs qlearning:
+  X wins: 97 (97.0%)
+  O wins: 0 (0.0%)
+  Draws: 3 (3.0%)
+
+Results for alpha-beta vs random:
+  X wins: 100 (100.0%)
+  O wins: 0 (0.0%)
+  Draws: 0 (0.0%)
+
+Results for alpha-beta vs minimax:
+  X wins: 0 (0.0%)
+  O wins: 0 (0.0%)
+  Draws: 100 (100.0%)
+
+Results for alpha-beta vs alpha-beta:
+  X wins: 0 (0.0%)
+  O wins: 0 (0.0%)
+  Draws: 100 (100.0%)
+
+Results for alpha-beta vs qlearning:
+  X wins: 97 (97.0%)
+  O wins: 0 (0.0%)
+  Draws: 3 (3.0%)
+
+Results for qlearning vs random:
+  X wins: 78 (78.0%)
+  O wins: 18 (18.0%)
+  Draws: 4 (4.0%)
+
+Results for qlearning vs minimax:
+  X wins: 0 (0.0%)
+  O wins: 20 (20.0%)
+  Draws: 80 (80.0%)
+
+Results for qlearning vs alpha-beta:
+  X wins: 0 (0.0%)
+  O wins: 22 (22.0%)
+  Draws: 78 (78.0%)
+
+Results for qlearning vs qlearning:
+  X wins: 81 (81.0%)
+  O wins: 9 (9.0%)
+  Draws: 10 (10.0%)
+

@@ -24,8 +24,8 @@ from algorithm.qLearning import QLearningAgent
 # ----------------------------------------------------------------------
 #  GAME CONSTANTS & HELPERS
 # ----------------------------------------------------------------------
-ROWS = 4
-COLS = 4
+ROWS = 5
+COLS = 5
 
 
 def get_valid_moves(board):
@@ -223,7 +223,7 @@ def play_game_q_vs_q(agent, transform_state_for_O=True):
 # ----------------------------------------------------------------------
 #  MAIN TRAINING LOOP
 # ----------------------------------------------------------------------
-def main(episode_count=50000):
+def main(episode_count=10000):
     """
     Train the Q-learning agent by self-play on a 4x4 Connect Four board.
     Defaults to 50,000 episodes. Adjust as needed for your environment.
@@ -254,7 +254,7 @@ def main(episode_count=50000):
         # agent.epsilon = max(agent.epsilon * 0.999995, 0.01)
 
         # Save progress every 5,000 games (for example)
-        if (episode+1) % 100 == 0:
+        if (episode+1) % 1000 == 0:
             agent.save_qtable()
             print(
                 f"Episode {episode+1}: P1 wins = {wins_for_p1}, P2 wins = {wins_for_p2}, Draws = {draws}")

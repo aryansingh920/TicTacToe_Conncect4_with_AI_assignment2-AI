@@ -47,3 +47,18 @@ Connect4 states loaded from data/connect4/connect4_states_4x4.pkl
 ^CInterrupt received. Saving current state dictionary...
 Connect4 states saved to data/connect4/connect4_states_4x4.pkl
 (.venv) (base) aryansingh@Aryans-MacBook-Air assignment2 % 
+
+
+
+Episode 1000: P1 wins = 386, P2 wins = 304, Draws = 310
+Episode 2000: P1 wins = 783, P2 wins = 599, Draws = 618
+Episode 3000: P1 wins = 1190, P2 wins = 901, Draws = 909
+Episode 4000: P1 wins = 1616, P2 wins = 1191, Draws = 1193
+Episode 5000: P1 wins = 2042, P2 wins = 1453, Draws = 1505
+Episode 6000: P1 wins = 2495, P2 wins = 1725, Draws = 1780
+Episode 7000: P1 wins = 2959, P2 wins = 1980, Draws = 2061
+Episode 8000: P1 wins = 3411, P2 wins = 2248, Draws = 2341
+Episode 9000: P1 wins = 3847, P2 wins = 2535, Draws = 2618
+Episode 10000: P1 wins = 4316, P2 wins = 2807, Draws = 2877
+Training finished.
+P1 wins: 4316, P2 wins: 2807, Draws: 2877
