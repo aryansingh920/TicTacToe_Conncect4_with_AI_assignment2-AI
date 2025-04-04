@@ -32,7 +32,7 @@ pygame.init()
 # ----------------------------------------------------------------------
 # GLOBAL CONFIG
 # ----------------------------------------------------------------------
-BOARD_N = 4  # If your Connect4StateManager is for a 4x4 board
+BOARD_N = 7  # If your Connect4StateManager is for a 4x4 board
 SQUARE_SIZE = 100
 BOARD_OFFSET = 60
 WIDTH = BOARD_N * SQUARE_SIZE
