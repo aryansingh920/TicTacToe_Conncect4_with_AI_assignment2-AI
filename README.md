@@ -40,7 +40,6 @@ Examples:
 
 AI Types:
 - none       → Human player
-- random     → Random moves
 - minimax    → Classic Minimax algorithm
 - alphabeta  → Minimax with Alpha-Beta pruning
 - qlearning  → Trained reinforcement learning agent
